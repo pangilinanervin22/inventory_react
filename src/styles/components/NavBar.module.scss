@@ -1,9 +1,22 @@
-.nav {
+.container {
     background: black;
+    width: 100vw;
     display: flex;
-    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
 
-    h1 {
+    * {
         color: tomato;
+    }
+
+
+    .nav {
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+
+        >* {
+            display: flex;
+        }
     }
 }

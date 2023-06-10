@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import styles from "../../styles/sample.module.scss"
+import styles from "../../styles/components/sample.module.scss"
 
 interface thisProps {
   message: string;
