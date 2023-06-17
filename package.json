@@ -20,6 +20,7 @@
     "react-hook-form": "^7.44.3",
     "react-router-dom": "^6.12.1",
     "sass": "^1.63.3",
+    "vite-plugin-svgr": "^3.2.0",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
