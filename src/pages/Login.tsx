@@ -14,20 +14,18 @@ export default function Login() {
 
                     <form className={styles.form} action="">
                         <div>
-                            <h3>Email</h3>
-                            <input type="text" required />
+                            <label htmlFor="username"><h3>Email</h3></label>
+                            <input id="username" name="username" type="text" min={8} max={30} required />
                         </div>
-
                         <div>
-                            <h3>Password</h3>
-                            <input type="password" />
+                            <label htmlFor="password"><h3>Password</h3></label>
+                            <input id="password" name="password" type="password" minLength={8} maxLength={70} required />
                         </div>
-
-                        <button>Login</button>
+                        <button type="submit">Login</button>
                     </form>
 
                     <div className={styles.link_signin}>
-                        <a href="*">Don't have an account?</a>
+                        <a href="/register">Don't have an account?</a>
                         <p>Sign Up</p>
                     </div>
                 </section>

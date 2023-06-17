@@ -8,8 +8,8 @@ export default function SignUp() {
             <section className={styles.container}>
                 <div>
                     <h2>Sign Up</h2>
-
-                    <p>Welcome back! Login to access Ajapco Inventory System.</p>
+                    <input type="checkbox" name="check" id="check" />
+                    <p>By signing up, you are setting up a account and agree to our Privacy Policy.</p>
                 </div>
 
                 <form className={styles.form} action="">
