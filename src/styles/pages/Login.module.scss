@@ -54,6 +54,11 @@
                 padding: 10px;
                 width: 90%;
                 margin-bottom: 10px;
+
+                &:focus {
+                    outline: none;
+                    border: 3px dashed black;
+                }
             }
 
             >button {
@@ -63,6 +68,16 @@
                 height: 30px;
                 width: 90%;
                 margin-block: 10px;
+                transition: 1s;
+
+                &:hover {
+                    box-shadow: 0 0 15px 2px black;
+                }
+
+                &:active {
+                    border: none;
+                    background: #363432b7;
+                }
             }
         }
     }
