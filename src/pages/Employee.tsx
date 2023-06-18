@@ -1,6 +1,7 @@
 import MainTable, { tableProps } from "../components/MainTable";
 import { iEmployee, } from "../utils/types"
 import styles from "../styles/components/Table.module.scss";
+import Test from "../components/common/Test";
 
 const employeData: iEmployee[] = [
     {
@@ -92,18 +93,21 @@ const content: tableProps = {
     id: "employee_id",
     searchPath: "name",
     structure: [
-        { label: "Name", path: "name", },
-        { label: "Username", path: "username", },
-        { label: "Position", path: "position", },
-        { label: "Phone Number", path: "contact_no", },
+        { label: "Name", path: "name", width: "20%" },
+        { label: "Username", path: "username", width: "15%" },
+        { label: "Position", path: "position", width: "10%" },
+        { label: "Phone Number", path: "contact_no", width: "15%" },
         {
             label: "Update",
+            width: "110px",
             element: ((val: any) =>
                 <button className={styles.button_update}
                     onClick={() => console.log(val)}>EDIT</button>)
         },
         {
-            label: "Delete", element: ((val: any) =>
+            label: "Delete",
+            width: "110px",
+            element: ((val: any) =>
                 <button className={styles.button_delete}
                     onClick={() => console.log(val)}>DELETE</button>)
         },

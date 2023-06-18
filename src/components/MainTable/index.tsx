@@ -1,10 +1,9 @@
 import React, { useMemo, useState } from "react";
 import BodyTable from "./BodyTable";
-import HeaderTable from "./HeaderTable";
 import ToolTable from "./ToolTable";
 import PaginateTable from "./PaginateTable";
-import styles from "../../styles/components/Table.module.scss";
 import paginate from "../../utils/paginate";
+import styles from "../../styles/components/Table.module.scss";
 
 
 
@@ -19,6 +18,7 @@ export interface Column {
     label: string;
     path?: string;
     element?: (val: any) => React.ReactElement;
+    width: string;
 }
 
 interface thisProps {
@@ -74,7 +74,6 @@ export default function MainTable({
         <section className={styles.container_table}>
             <ToolTable text={searchQuery} changeText={onChangeSearchQuery} />
             <table>
-                <HeaderTable tableProps={structure} />
                 <BodyTable data={sortedData} tableProps={structure} />
             </table>
             <PaginateTable page={page.current} size={page.size} currentTotal={sortedData.length} total={sizeData} handlePage={onHandlePage} />

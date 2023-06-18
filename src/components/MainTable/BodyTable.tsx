@@ -11,17 +11,26 @@ export default function BodyTable({ data, tableProps }: thisProps) {
 
     return (
         <>
+            <thead>
+                <tr>
+                    {tableProps.structure.map((curBase: Column) => (
+                        <th key={curBase.label} style={{ width: curBase.width }} >
+                            {curBase.label}
+                        </th>
+                    ))}
+                </tr>
+            </thead >
             <tbody>
                 {data.map((curData) => (
-                    <tr key={curData[tableProps.id]}>
+                    <tr key={curData[tableProps.id]} >
                         {tableProps.structure.map((curBase: Column) => (
-                            <td key={curBase.label} >
+                            <td key={curBase.label} style={{ width: curBase.width }}  >
                                 {curData[curBase.path!] || curBase.element!(curData[tableProps.id])}
                             </td>
                         ))}
                     </tr>
                 ))}
-            </tbody>
+            </tbody >
         </>
     )
 }
