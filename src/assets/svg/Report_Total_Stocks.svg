@@ -1,0 +1,21 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 275.02 197.78">
+    <title>Report_Total Stocks</title>
+    <path
+        d="M315,285.9H279V157.39H75.89V285.92H40.07v-3.2q0-62.58,0-125.16c0-2.33.58-3.56,2.82-4.64Q108.7,121.06,174.44,89a6,6,0,0,1,5.91-.08q66,32.21,132.16,64.22c1.75.85,2.54,1.77,2.53,3.86q-.1,63.22-.05,126.45ZM163.24,133.49v-9H151.85v9Zm39.86,0v-8.86H191.68v8.86Zm-37.64-.13h10.8v-8.83h-10.8Zm24,.08v-8.88h-11v8.88Zm-37.69,2.21v8.18h11.46v-8.18Zm51.36.1H191.66v8.08h11.51Zm-37.63-.1v8.18h10.75v-8.18Zm24,.08h-11v8.1h11Z"
+        transform="translate(-40.03 -88.17)" />
+    <path d="M141.76,163v26.26H115.33V163Z" transform="translate(-40.03 -88.17)" />
+    <path d="M141.74,221.76H115.36V195.21h26.38Z" transform="translate(-40.03 -88.17)" />
+    <path d="M115.48,259.58h26.29v26.33H115.48Z" transform="translate(-40.03 -88.17)" />
+    <path d="M141.74,253.69H115.36V227.23h26.38Z" transform="translate(-40.03 -88.17)" />
+    <path d="M82.49,189.25V163h26.37v26.27Z" transform="translate(-40.03 -88.17)" />
+    <path d="M82.59,195.22h26.3v26.42H82.59Z" transform="translate(-40.03 -88.17)" />
+    <path d="M148.06,195.21h26.27v26.42H148.06Z" transform="translate(-40.03 -88.17)" />
+    <path d="M82.53,227.18h26.31v26.37H82.53Z" transform="translate(-40.03 -88.17)" />
+    <path d="M174.33,253.65H148v-26.4h26.32Z" transform="translate(-40.03 -88.17)" />
+    <path d="M206.77,253.69H180.51v-26.4h26.26Z" transform="translate(-40.03 -88.17)" />
+    <path d="M108.81,286H82.62V259.66h26.19Z" transform="translate(-40.03 -88.17)" />
+    <path d="M148.06,259.52h26.23v26.35H148.06Z" transform="translate(-40.03 -88.17)" />
+    <path d="M206.87,259.63v26.29H180.51V259.63Z" transform="translate(-40.03 -88.17)" />
+    <path d="M213.2,285.8V259.69h26.53V285.8Z" transform="translate(-40.03 -88.17)" />
+    <path d="M272.27,286H246V259.61h26.29Z" transform="translate(-40.03 -88.17)" />
+</svg>
