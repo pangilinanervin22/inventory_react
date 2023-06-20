@@ -7,6 +7,7 @@ import Employee from './pages/Employee'
 import Sales from './pages/Sales'
 import Inventory from './pages/Stock'
 import Product from './pages/Product'
+import "./styles/app.scss"
 
 function App() {
   // const { data, isSuccess, error, isLoading } = useQuery({ queryKey: ["employee"], queryFn: getEmployee });
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <>
-      {!localStorage.getItem("token") ?
+      {localStorage.getItem("token") ?
         <Routes>
           <Route path='/' element={<Root />}>
             <Route path='/' element={<h1>2</h1>} />
