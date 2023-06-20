@@ -67,12 +67,12 @@
         .active {
             background: #dad5d2;
 
-            >:first-child {
-                fill: #5F483D;
+            >:first-child * {
+                fill: red;
             }
 
             >:last-child {
-                color: #5F483D;
+                color: red;
             }
         }
     }
