@@ -5,10 +5,10 @@ interface thisProps {
     page: number,
     total: number;
     currentTotal: number;
-    handlePage: Function;
+    handlePagination: Function;
 }
 
-export default function PaginateTable({ page, size, total, currentTotal, handlePage }: thisProps) {
+export default function PaginateTable({ page, size, total, currentTotal, handlePagination }: thisProps) {
     const pageStart = page * size;
     const pageEnd = pageStart + currentTotal;
 
@@ -16,8 +16,8 @@ export default function PaginateTable({ page, size, total, currentTotal, handleP
     return (
         <section className={styles.paginate_table}>
             <p>{`${pageStart + 1}-${pageEnd} of ${total}`}</p>
-            <button onClick={() => handlePage(page - 1)}>left</button>
-            <button onClick={() => handlePage(page + 1)}>right</button>
+            <button onClick={() => handlePagination(page - 1)}>left</button>
+            <button onClick={() => handlePagination(page + 1)}>right</button>
         </section>
     )
 }

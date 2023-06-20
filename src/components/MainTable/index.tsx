@@ -1,11 +1,10 @@
 import React, { useMemo, useState } from "react";
-import BodyTable from "./BodyTable";
+import StructureTable from "./StructureTable";
 import ToolTable from "./ToolTable";
 import PaginateTable from "./PaginateTable";
 import paginate from "../../utils/paginate";
 import styles from "../../styles/components/Table.module.scss";
-
-
+import sortPath from "../../utils/sortPath";
 
 export interface tableProps {
     id: string
@@ -19,6 +18,11 @@ export interface Column {
     path?: string;
     element?: (val: any) => React.ReactElement;
     width: string;
+}
+
+export interface sortColumnProps {
+    path: string;
+    order: boolean;
 }
 
 interface thisProps {
@@ -46,6 +50,10 @@ export default function MainTable({
         size: 5,
     });
     const [searchQuery, setSearchQuery] = useState("");
+    const [sortColumn, setSortColumn] = useState<sortColumnProps>({
+        path: structure.searchPath,
+        order: true,
+    });
 
 
     let sortedData = structuredClone(data);
@@ -64,23 +72,29 @@ export default function MainTable({
     );
     const sizeData = sortedData.length;
 
+    //sorting by path
+    sortedData = useMemo(
+        () => {
+            console.log("sort", sortColumn);
+            return (sortedData = sortPath(sortedData, sortColumn.path, sortColumn.order))
+        },
+        [sortColumn, searchQuery, data]);
+
     //pagination data
     sortedData = useMemo(
         () => paginate(sortedData, page.current, page.size),
-        [page, data]
+        [sortColumn, page, data]
     );
 
     return (
         <section className={styles.container_table}>
             <ToolTable text={searchQuery} changeText={onChangeSearchQuery} />
-            <table>
-                <BodyTable data={sortedData} tableProps={structure} />
-            </table>
-            <PaginateTable page={page.current} size={page.size} currentTotal={sortedData.length} total={sizeData} handlePage={onHandlePage} />
+            <StructureTable data={sortedData} tableProps={structure} sortColoumn={sortColumn} handleSortColoumn={onHandleSortColoumn} />
+            <PaginateTable page={page.current} size={page.size} currentTotal={sortedData.length} total={sizeData} handlePagination={onHandlePagination} />
         </section>
     );
 
-    function onHandlePage(inputValue: number) {
+    function onHandlePagination(inputValue: number) {
         const currentValue = inputValue * page.size;
 
         if (currentValue > sortedData.length || currentValue < 0)
@@ -91,6 +105,18 @@ export default function MainTable({
 
     function onChangeSearchQuery(inputValue: string) {
         setSearchQuery(inputValue);
+        setPage({
+            ...page,
+            current: 0,
+        });
+    }
+
+    function onHandleSortColoumn(path: string, order = true) {
+        const temp = { order, path };
+        if (temp.path == sortColumn.path)
+            temp.order = temp.order ? false : true;
+
+        setSortColumn({ order: temp.order, path: temp.path });
         setPage({
             ...page,
             current: 0,

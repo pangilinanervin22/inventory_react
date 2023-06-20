@@ -1,8 +1,4 @@
-export default function sortPath(array: any[], path: string, order = "asc") {
-    if (order !== "asc" && order !== "desc") {
-        console.error("Error asc or desc only for order params");
-        return array;
-    }
+export default function sortPath(array: any[], path: string, order: boolean) {
 
     try {
         array = array.sort(function (a, b) {
@@ -18,5 +14,5 @@ export default function sortPath(array: any[], path: string, order = "asc") {
         });
     }
 
-    return order === "asc" ? array : array.reverse();
+    return order ? array : array.reverse();
 }
