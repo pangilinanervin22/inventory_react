@@ -1,0 +1,51 @@
+// for the titles ex(sign up, log in, add product, etc)
+// <link href='https://fonts.googleapis.com/css?family=Trocchi' rel='stylesheet'>font-family: 'Trocchi';
+
+// for sub-title text like(username, full name, etc)
+// <link href="https://fonts.cdnfonts.com/css/glacial-indifference-2" rel="stylesheet">
+//font-family: 'Glacial Indifference', sans-serif;
+
+// for sub text or lahat ng other text na to mga names ng product, mga tao, etc.
+// <link href="https://fonts.cdnfonts.com/css/futura-pt" rel="stylesheet">
+// font-family: 'Futura PT', sans-serif;
+
+// for smaller text lng or pang additional
+// <link href="https://fonts.cdnfonts.com/css/open-sans" rel="stylesheet">
+//font-family: 'Open Sans', sans-serif;
+// font-family: 'Open Sans Light' sans-serif;
+// font-family: 'Open Sans Condensed', sans-serif;
+
+$TitleFontFamily: "Trocchi";
+$MajorFontFamily: "Futura PT", sans-serif;
+$LabelFontFamily: "Glacial Indifference", sans-serif;
+$MinorFontFamily: "Open Sans", sans-serif;
+
+$TitleFontSize: 30px;
+$MajorFontSize: 20px;
+$LabelFontSize: 16px;
+$MinorFontSize: 13px;
+$myColor: rgb(65, 147, 145);
+
+$PrimaryColor: #DDCEBE; // bg
+$SecondaryColor: #C08878; //little signup/login word
+$ErrorColor: #FF3131; // or password dont match
+$LightColor: #E8E8E8; //cancel button
+$EditColor: #2F5F98; // edit button
+$DeleteColor: #FF5757; // delete button
+
+// Dashboard theme
+// #5F483D - ung sa taas BG color and sa broken border lines/ colors ng mga text
+// #C08878 - color of the text sa taas mga titles
+// #E8C3B8 - employee word color beside the icon
+
+// color theme ng graph
+// #E8C3B8
+// #C08878
+// #9D7E22
+
+@mixin flex_container($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify ;
+    align-items: $align ;
+}
