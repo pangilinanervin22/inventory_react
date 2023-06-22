@@ -20,7 +20,7 @@ function App() {
 
   return (
     <>
-      {localStorage.getItem("token") ?
+      {!localStorage.getItem("token") ?
         <Routes>
           <Route path='/' element={<Root />}>
             <Route path='/' element={<h1>2</h1>} />

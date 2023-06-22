@@ -1,11 +1,15 @@
 
 interface thiProps {
     className: string
+    error: string;
 }
 
-function RenderIcon(props: thiProps) {
+function RenderIcon({ className, error }: thiProps) {
     return (
-        <div>{props.className}</div>
+        <>
+            <input></input>
+            <div>{error}</div>
+        </>
     )
 }
 

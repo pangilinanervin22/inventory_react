@@ -1,25 +1,46 @@
+import { SubmitHandler, useForm } from "react-hook-form";
 import styles from "../styles/pages/Login.module.scss";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+
+const personSchema = z.object({
+    username: z.string(),
+    password: z.number()
+});
+
+type FormSchemaType = z.infer<typeof personSchema>;
 
 
 export default function Login() {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
+        resolver: zodResolver(personSchema),
+    });
+
+    const onSubmit: SubmitHandler<FormSchemaType> = (data: any) => console.log(data);
+
+    console.log(errors);
+
 
     return (
         <main className={styles.login}>
             <div className={styles.container}>
                 <section className={styles.input_container}>
                     <div>
-                        <h2>Log In</h2>
+                        <h1>Log In</h1>
                         <p>Welcome back! Login to access Ajapco Inventory System.</p>
                     </div>
 
-                    <form className={styles.form} action="">
+                    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                         <div>
-                            <label htmlFor="username"><h3>Email</h3></label>
-                            <input id="username" name="username" type="text" min={8} max={30} required />
+                            <label htmlFor="username">Email</label>
+                            <input {...register("username", { min: 8, max: 30, required: true })} id="username" name="username" type="text" />
+                            {errors.username && <span>{String(errors.username?.type)}</span>}
+
                         </div>
                         <div>
-                            <label htmlFor="password"><h3>Password</h3></label>
-                            <input id="password" name="password" type="password" minLength={8} maxLength={70} required />
+                            <label htmlFor="password">Password</label>
+                            <input {...register("password", { min: 8, max: 30, required: true })} id="password" name="password" type="password" />
                         </div>
                         <button type="submit">Login</button>
                     </form>

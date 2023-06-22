@@ -21,6 +21,7 @@
 }
 
 * {
+    text-decoration: none;
     box-sizing: border-box;
     border: 0;
     margin: 0;
@@ -31,21 +32,28 @@ h1 {
     font-size: 30px;
 }
 
+h2 {
+    font-family: $TitleFontFamily;
+    font-size: 20px;
+    text-decoration: none;
+}
+
 label {
-    font-family: $LabelFontFamily ;
-    font-size: $LabelFontSize;
+    font-family: $PrimaryFontFamily ;
+    font-size: $MinorFontSize;
 }
 
 p {
-    font-family: $MinorFontFamily;
-    font-size: $MinorFontSize;
+    font-weight: 400;
+    font-family: $PrimaryFontFamily;
+    font-size: $PrimaryFontSize;
 }
 
 
 a {
-    font-weight: 500;
+    font-family: $PrimaryFontFamily;
+    font-weight: 700;
     color: #646cff;
-    text-decoration: inherit;
 }
 
 a:hover {

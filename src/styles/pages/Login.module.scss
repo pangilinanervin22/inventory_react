@@ -21,9 +21,9 @@
     }
 
     .input_container {
-        background: rgb(235, 226, 216);
+        background: $PrimaryColor;
         padding: 20px;
-        border: 3px dashed rgb(159, 145, 139);
+        border: 4px dashed $BorderColorLight;
 
         .form {
             width: 100%;
@@ -35,7 +35,7 @@
             }
 
             input {
-                border: 3px dashed rgb(144, 130, 124);
+                border: 3.5px dashed $BorderDarkColor;
                 border-radius: 10px;
                 padding: 10px;
                 width: 90%;
@@ -43,40 +43,46 @@
 
                 &:focus {
                     outline: none;
-                    border: 3px dashed black;
+                    border: 3.5px dashed $DarkPimaryColor;
                 }
             }
 
             >button {
-                background: $myColor;
                 border-radius: 5px;
                 color: white;
-                height: 30px;
                 width: 90%;
+                padding-block: 5px;
                 margin-block: 10px;
                 transition: 1s;
                 text-align: center;
+                background: $DarkPimaryColor;
+                font-family: $TitleFontFamily;
+                font-size: $PrimaryFontSize;
 
                 &:hover {
-                    box-shadow: 0 0 15px 2px black;
+                    box-shadow: 0 0 5px 2px black;
                 }
 
                 &:active {
                     border: none;
-                    background: #363432b7;
                 }
             }
         }
     }
 
     .link_signin {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
+        @include flex_container(row, space-between, center);
+        padding: 20px 12px;
         width: 90%;
 
+        a {
+            color: $DarkPimaryColor;
+
+        }
+
         p {
-            color: rgb(228, 92, 92);
+            color: tomato;
+            font-weight: 700;
         }
     }
 

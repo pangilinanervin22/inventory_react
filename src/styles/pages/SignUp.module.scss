@@ -1,3 +1,5 @@
+@import "../index";
+
 .signup {
     display: flex;
     justify-content: center;
@@ -6,10 +8,9 @@
     height: 100vh;
 
     .container {
-        background: rgb(235, 226, 216);
-        padding: 20px;
+        background: $PrimaryColor;
+        padding: 10px 20px;
         border: 4px dashed rgb(159, 145, 139);
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         width: clamp(520px, 80%, 920px);
         border-radius: 5px;
 
@@ -25,65 +26,87 @@
             >div {
                 width: clamp(150px, 40%, 350px);
                 margin: auto;
+                padding-bottom: 30px;
+                position: relative;
+            }
+
+            input {
+                border: 3px solid $DarkPimaryColor;
+                border-radius: 10px;
+                padding: 10px;
+                width: 100%;
             }
 
             >:last-child {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                height: auto;
+                margin-bottom: 10px;
 
                 button {
-                    background: #363432;
                     border-radius: 10px;
                     color: white;
-                    height: 40px;
-                    margin-block: 10px;
+                    height: 35px;
+                    margin-bottom: 20px;
                     width: 100%;
+                    font-family: $TitleFontFamily;
+                    font-size: $PrimaryFontSize;
+                    background: $DarkPimaryColor;
                 }
             }
+
         }
-
-
-        h2 {
-            font-size: 40px;
-            font-weight: 300;
-            font-family: 'trocchi';
-        }
-
-
-        h3 {
-            font-size: 15px;
-            font-weight: 500;
-        }
-
-        p {
-            font-size: 13px;
-        }
-
-        input {
-            border: 3px solid rgb(16, 15, 15);
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-
 
     }
-
-    .link_signin {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        width: 100%;
-        text-align: center;
-
-        p {
-            color: rgb(228, 92, 92);
-        }
-    }
-
 }
+
+.link_signin {
+    @include flex_container(row, space-between, center);
+    padding: 0 12px;
+    width: 90%;
+
+    a {
+        color: $DarkPimaryColor;
+
+    }
+
+    p {
+        color: $DarkPimaryColor;
+        font-weight: 800;
+    }
+}
+
+.privacy_policy {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    input {
+        border-radius: 10px;
+        color: white;
+        height: 18px;
+        width: 18px;
+        margin: 10px;
+        font-family: $TitleFontFamily;
+        font-size: $PrimaryFontSize;
+        background: $DarkPimaryColor;
+    }
+}
+
+.error {
+    color: $ErrorColor;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+
+    input {
+        outline: none;
+        border: 3px solid $ErrorColor !important;
+        color: $DeleteColor;
+    }
+}
+
 
 //                        <input type="checkbox" name="check" id="check" className={styles.checkmark} />

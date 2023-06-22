@@ -1,5 +1,7 @@
+@import "../index";
+
 .container {
-    background: #5F483D;
+    background: $DarkPimaryColor;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -59,9 +61,9 @@
                 fill: #dad5d2;
             }
 
-            >:last-child {
-                font-size: 20px;
-            }
+            
+
+            
         }
 
         .active {

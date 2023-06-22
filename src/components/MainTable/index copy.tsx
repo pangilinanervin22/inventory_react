@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BodyTable from "./BodyTable";
+import BodyTable from "./StructureTable";
 
 
 

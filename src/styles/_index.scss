@@ -17,17 +17,18 @@
 
 $TitleFontFamily: "Trocchi";
 $MajorFontFamily: "Futura PT", sans-serif;
-$LabelFontFamily: "Glacial Indifference", sans-serif;
 $MinorFontFamily: "Open Sans", sans-serif;
+$PrimaryFontFamily: "Glacial Indifference", sans-serif;
 
 $TitleFontSize: 30px;
 $MajorFontSize: 20px;
-$LabelFontSize: 16px;
-$MinorFontSize: 13px;
+$MinorFontSize: 18px;
+$PrimaryFontSize: 15px;
 $myColor: rgb(65, 147, 145);
 
-$PrimaryColor: #DDCEBE; // background color
-$SecondaryColor: #C08878; //little signup/login word
+$PrimaryColor: #d1c2b2; // background color
+$DarkPimaryColor: #5f483d;
+$BorderColorLight: #9f918b; //little signup/login word
 $ErrorColor: #FF3131; // or password dont match
 $LightColor: #E8E8E8; //cancel button
 $EditColor: #2F5F98; // edit button
