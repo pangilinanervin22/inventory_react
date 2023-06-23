@@ -60,9 +60,6 @@
                 width: 30px;
                 fill: #dad5d2;
             }
-
-            
-
             
         }
 
@@ -70,11 +67,11 @@
             background: #dad5d2;
 
             >:first-child * {
-                fill: red;
+                fill: $DarkPimaryColor;
             }
 
             >:last-child {
-                color: red;
+                color: $DarkPimaryColor;
             }
         }
     }

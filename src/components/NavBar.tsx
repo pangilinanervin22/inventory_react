@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
 import styles from "../styles/components/navbar.module.scss";
-import { ReactComponent as ReactLogo } from "../assets/react.svg";
-import { ReactComponent as Search } from "../assets/svg/Search.svg";
-import { ReactComponent as Report } from "../assets/svg/Report.svg";
-import { ReactComponent as Product } from "../assets/svg/Product.svg";
-import { ReactComponent as Inventory } from "../assets/svg/Inventory.svg";
-import { ReactComponent as Sales } from "../assets/svg/Sales.svg";
+import { ReactComponent as MainIcon } from "../assets/svg/Main.svg";
+import { ReactComponent as SearchIcon } from "../assets/svg/Search.svg";
+import { ReactComponent as ReportIcon } from "../assets/svg/Report.svg";
+import { ReactComponent as ProductIcon } from "../assets/svg/Product.svg";
+import { ReactComponent as InventoryIcon } from "../assets/svg/Inventory.svg";
+import { ReactComponent as SalesIcon } from "../assets/svg/Sales.svg";
 
 import User from "../assets/user.png";
 
@@ -13,26 +13,26 @@ export default function NavBar() {
     return (
         <>
             <div className={styles.container}>
-                <ReactLogo />
+                <MainIcon />
                 <div className={styles.nav}>
                     <NavLink to="/" style={{textDecoration: "none"}} className={({ isActive }) => isActive ? styles.active : ""} >
-                        <Report />
+                        <ReportIcon />
                         <h2>Report</h2>
                     </NavLink>
                     <NavLink to="/product" className={({ isActive }) => isActive ? styles.active : ""} >
-                        <Product />
+                        <ProductIcon />
                         <h2>Product</h2>
                     </NavLink>
                     <NavLink to="/inventory" className={({ isActive }) => isActive ? styles.active : ""} >
-                        <Inventory />
+                        <InventoryIcon />
                         <h2>Inventory</h2>
                     </NavLink>
                     <NavLink to="/sales" className={({ isActive }) => isActive ? styles.active : ""} >
-                        <Sales />
+                        <SalesIcon />
                         <h2>Sales</h2>
                     </NavLink>
                     <NavLink to="/employee" className={({ isActive }) => isActive ? styles.active : ""} >
-                        <Search />
+                        <SearchIcon />
                         <h2>Employee</h2>
                     </NavLink>
                 </div>
