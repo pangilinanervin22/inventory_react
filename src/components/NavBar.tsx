@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "../styles/components/navbar.module.scss";
 import { ReactComponent as MainIcon } from "../assets/svg/Main.svg";
-import { ReactComponent as SearchIcon } from "../assets/svg/Search.svg";
+import { ReactComponent as Employee } from "../assets/svg/Employee.svg";
 import { ReactComponent as ReportIcon } from "../assets/svg/Report.svg";
 import { ReactComponent as ProductIcon } from "../assets/svg/Product.svg";
 import { ReactComponent as InventoryIcon } from "../assets/svg/Inventory.svg";
@@ -15,7 +15,7 @@ export default function NavBar() {
             <div className={styles.container}>
                 <MainIcon />
                 <div className={styles.nav}>
-                    <NavLink to="/" style={{textDecoration: "none"}} className={({ isActive }) => isActive ? styles.active : ""} >
+                    <NavLink to="/" style={{ textDecoration: "none" }} className={({ isActive }) => isActive ? styles.active : ""} >
                         <ReportIcon />
                         <h2>Report</h2>
                     </NavLink>
@@ -32,7 +32,7 @@ export default function NavBar() {
                         <h2>Sales</h2>
                     </NavLink>
                     <NavLink to="/employee" className={({ isActive }) => isActive ? styles.active : ""} >
-                        <SearchIcon />
+                        <Employee />
                         <h2>Employee</h2>
                     </NavLink>
                 </div>
