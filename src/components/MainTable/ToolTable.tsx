@@ -4,10 +4,11 @@ import styles from '../../styles/components/Table.module.scss'
 
 interface thisProps {
   text: string;
+  title: string;
   changeText: Function;
 }
 
-export default function ToolTable({ text, changeText }: thisProps) {
+export default function ToolTable({ text, title, changeText }: thisProps) {
   console.log(text);
 
   return (
@@ -19,7 +20,7 @@ export default function ToolTable({ text, changeText }: thisProps) {
       </div>
       <Link to={"/"}>
         <Add />
-        <button>ADD Employee</button>
+        <button>ADD {title}</button>
       </Link>
     </section>
   )
