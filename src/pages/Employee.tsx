@@ -1,7 +1,6 @@
 import MainTable, { tableProps } from "../components/MainTable";
 import { iEmployee, } from "../utils/types"
 import styles from "../styles/components/Table.module.scss";
-import Test from "../components/common/Test";
 
 const employeData: iEmployee[] = [
     {

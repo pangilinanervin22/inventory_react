@@ -8,67 +8,29 @@
     height: 100vh;
 
     .container {
-        background: $PrimaryColor;
+        background: $LightColor;
         padding: 10px 20px;
-        border: 4px dashed rgb(159, 145, 139);
+        border: 4px dashed $BorderColorLight;
         width: clamp(520px, 80%, 920px);
         border-radius: 5px;
-
-
-        .form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            width: 100%;
-            margin-top: 20px;
-
-            >div {
-                width: clamp(150px, 40%, 350px);
-                margin: auto;
-                padding-bottom: 30px;
-                position: relative;
-            }
-
-            input {
-                border: 3px solid $DarkPimaryColor;
-                border-radius: 10px;
-                padding: 10px;
-                width: 100%;
-            }
-
-            >:last-child {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                height: auto;
-                margin-bottom: 10px;
-
-                button {
-                    border-radius: 10px;
-                    color: white;
-                    height: 35px;
-                    margin-bottom: 20px;
-                    width: 100%;
-                    font-family: $TitleFontFamily;
-                    font-size: $PrimaryFontSize;
-                    background: $DarkPimaryColor;
-                }
-            }
-
-        }
 
     }
 }
 
 .link_signin {
-    @include flex_container(row, space-between, center);
+    @include flex_container();
     padding: 0 12px;
-    width: 90%;
+    width: 100%;
+    margin-block: 10px;
+
+    div {
+        @include flex_container(row, space-around);
+        width: 50%;
+    }
 
     a {
-        color: $DarkPimaryColor;
-
+        color: $DarkColor;
+        text-decoration: underline;
     }
 
     p {
@@ -91,15 +53,80 @@
         margin: 10px;
         font-family: $TitleFontFamily;
         font-size: $PrimaryFontSize;
-        background: $DarkPimaryColor;
+        background: $DarkColor;
     }
 }
 
-.error {
-    color: $ErrorColor;
-    position: absolute;
-    left: 0px;
-    bottom: 0px;
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 20px;
+
+    >div {
+        width: clamp(250px, 40%, 350px);
+        margin: auto;
+        padding-bottom: 30px;
+        position: relative;
+    }
+
+    .form_input {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding-bottom: 25px;
+
+        input {
+            border: 3.5px solid $DarkColor;
+            border-radius: 10px;
+            padding: 10px;
+            width: 90%;
+
+            &:focus {
+                outline: none;
+                border: 3.5px solid $BorderColorLight;
+            }
+        }
+    }
+
+    >:last-child {
+        width: 40%;
+        background: $DarkColor;
+        border-radius: 10px;
+        padding-block: 5px;
+        color: white;
+        transition: 1s;
+        text-align: center;
+        font-family: $TitleFontFamily;
+        font-size: $PrimaryFontSize;
+
+        &:hover {
+            box-shadow: 0 0 5px 2px black;
+        }
+
+        &:active {
+            border: none;
+        }
+
+    }
+
+}
+
+.error_input {
+    label {
+        color: $ErrorColor;
+    }
+
+    p {
+        color: $ErrorColor;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        font-size: $PrimaryFontSize;
+        font-family: $PrimaryFontFamily
+    }
 
     input {
         outline: none;
@@ -107,6 +134,7 @@
         color: $DeleteColor;
     }
 }
+
 
 
 //                        <input type="checkbox" name="check" id="check" className={styles.checkmark} />

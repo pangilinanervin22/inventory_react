@@ -1,4 +1,8 @@
 import { Column, sortColumnProps, tableProps } from ".";
+import { ReactComponent as Up } from "../../assets/svg/Arrow_Up.svg";
+import { ReactComponent as Down } from "../../assets/svg/Arrow_Down.svg";
+import styles from '../../styles/components/Table.module.scss'
+
 
 interface thisProps {
     data: any[];
@@ -35,16 +39,13 @@ export default function BodyTable({ data, tableProps, sortColoumn, handleSortCol
         if (!column.path)
             return <th key={column.label} style={{ width: column.width }} > {column.label} </th>
 
-        return <th key={column.label} style={{ width: column.width }} onClick={() => {
-            console.log("hello");
-
-            handleSortColoumn(column.path, currentSort.order);
-        }} >
+        return <th key={column.label} style={{ width: column.width }}
+            onClick={() => { handleSortColoumn(column.path, currentSort.order); }} >
             {column.label} {currentSort.path == column.path && renderIcon(currentSort.order)}
         </th>
     }
 
     function renderIcon(isAsscending: boolean) {
-        return isAsscending ? "asc" : "desc"
+        return isAsscending ? <Up className={styles.arrow_keys} /> : <Down className={styles.arrow_keys} />
     }
 }

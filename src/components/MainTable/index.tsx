@@ -60,14 +60,7 @@ export default function MainTable({
 
     //sorting by search query filter
     sortedData = useMemo(
-        () => {
-            console.log("search");
-
-            return data.filter((item: any) =>
-                item.name.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-        },
-
+        () => (data.filter((item: any) => item.name.toLowerCase().includes(searchQuery.toLowerCase()))),
         [searchQuery, data]
     );
     const sizeData = sortedData.length;
@@ -88,7 +81,7 @@ export default function MainTable({
 
     return (
         <section className={styles.container_table}>
-            <ToolTable text={searchQuery} changeText={onChangeSearchQuery} />
+            <ToolTable text={searchQuery} changeText={onChangeSearchQuery} title={structure.title} />
             <StructureTable data={sortedData} tableProps={structure} sortColoumn={sortColumn} handleSortColoumn={onHandleSortColoumn} />
             <PaginateTable page={page.current} size={page.size} currentTotal={sortedData.length} total={sizeData} handlePagination={onHandlePagination} />
         </section>
@@ -97,8 +90,7 @@ export default function MainTable({
     function onHandlePagination(inputValue: number) {
         const currentValue = inputValue * page.size;
 
-        if (currentValue > sortedData.length || currentValue < 0)
-            return;
+        if (currentValue >= sizeData || currentValue < 0) return;
 
         setPage({ ...page, current: inputValue });
     }

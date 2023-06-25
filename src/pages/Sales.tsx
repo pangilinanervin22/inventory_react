@@ -1,9 +1,6 @@
-import { useNavigate } from "react-router-dom";
 
 export default function Sales() {
-    const navigate = useNavigate();
 
-    navigate("/")
 
     return (
         <>
