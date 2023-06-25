@@ -1,89 +1,28 @@
 @import '../index';
 
-.login {
+.canvas {
     @include flex_container();
-
     width: 100vw;
     height: 100vh;
+}
 
-    .container {
-        width: 80%;
-        max-width: 820px;
-        min-width: 520px;
-        height: 480px;
-        display: flex;
+.container {
+    width: 80%;
+    max-width: 820px;
+    min-width: 520px;
+    height: 480px;
+    display: flex;
 
-        >* {
-            width: 50%;
-            margin: 5px;
-            border-radius: 5px;
-        }
+    >* {
+        width: 50%;
+        margin: 5px;
+        border-radius: 5px;
     }
 
-    .input_container {
-        background: $PrimaryColor;
+    .content_card {
+        background: $LightColor;
         padding: 20px;
         border: 4px dashed $BorderColorLight;
-
-        .form {
-            width: 100%;
-            margin-top: 20px;
-
-            >div {
-                display: flex;
-                flex-direction: column;
-            }
-
-            input {
-                border: 3.5px dashed $BorderDarkColor;
-                border-radius: 10px;
-                padding: 10px;
-                width: 90%;
-                margin-bottom: 10px;
-
-                &:focus {
-                    outline: none;
-                    border: 3.5px dashed $DarkPimaryColor;
-                }
-            }
-
-            >button {
-                border-radius: 5px;
-                color: white;
-                width: 90%;
-                padding-block: 5px;
-                margin-block: 10px;
-                transition: 1s;
-                text-align: center;
-                background: $DarkPimaryColor;
-                font-family: $TitleFontFamily;
-                font-size: $PrimaryFontSize;
-
-                &:hover {
-                    box-shadow: 0 0 5px 2px black;
-                }
-
-                &:active {
-                    border: none;
-                }
-            }
-        }
-    }
-
-    .link_signin {
-        @include flex_container(row, space-between, center);
-        padding: 20px 12px;
-        width: 90%;
-
-        a {
-            color: $DarkPimaryColor;
-
-        }
-
-        p {
-            color: tomato;
-            font-weight: 700;
-        }
     }
 
     .image_container {
@@ -92,5 +31,85 @@
         background-repeat: no-repeat;
         background-size: cover;
     }
+}
 
+.form {
+    width: 100%;
+    margin-top: 20px;
+
+    >button {
+        border-radius: 5px;
+        color: white;
+        width: 90%;
+        padding-block: 5px;
+        transition: 1s;
+        text-align: center;
+        background: $DarkColor;
+        font-family: $TitleFontFamily;
+        font-size: $PrimaryFontSize;
+
+        &:hover {
+            box-shadow: 0 0 5px 2px black;
+        }
+
+        &:active {
+            border: none;
+        }
+    }
+}
+
+.form_input {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 25px;
+
+    input {
+        border: 3.5px dashed $BorderColorLight;
+        border-radius: 10px;
+        padding: 10px;
+        width: 90%;
+
+        &:focus {
+            outline: none;
+            border: 3.5px dashed $DarkPimaryColor;
+        }
+    }
+}
+
+.error_input {
+    label {
+        color: $ErrorColor;
+    }
+
+    span {
+        color: $ErrorColor;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        font-size: $PrimaryFontSize;
+        font-family: $PrimaryFontFamily;
+    }
+
+    input {
+        outline: none;
+        border: 3px solid $ErrorColor !important;
+        color: $DeleteColor;
+    }
+}
+
+.link_signin {
+    @include flex_container(row, space-between, center);
+    padding: 20px 12px;
+    width: 90%;
+
+    a {
+        color: $DarkColor;
+        text-decoration: underline;
+    }
+
+    p {
+        color: tomato;
+        font-weight: 700;
+    }
 }

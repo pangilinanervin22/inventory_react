@@ -1,21 +1,15 @@
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { create } from 'zustand';
 
-// export const useAuth = () => {
-//     const queryClient = useQueryClient();
+type AuthStore = {
+    isAuthenticated: boolean;
+    login: () => void;
+    logout: () => void;
+};
 
-//     const loginMutation = useMutation(login, {
-//         onSuccess: (data) => {
-//             // Set the authentication token or user data in React Query
-//             // e.g., queryClient.setQueryData('user', data.user);
-//         },
-//     });
+const useAuthStore = create<AuthStore>((set) => ({
+    isAuthenticated: false,
+    login: () => set({ isAuthenticated: true }),
+    logout: () => set({ isAuthenticated: false }),
+}));
 
-//     const logoutMutation = useMutation(logout, {
-//         onSuccess: () => {
-//             // Clear the authentication token or user data in React Query
-//             // e.g., queryClient.removeQueryData('user');
-//         },
-//     });
-
-//     return { loginMutation, logoutMutation };
-// };
+export default useAuthStore;

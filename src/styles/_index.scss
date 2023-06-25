@@ -26,13 +26,15 @@ $MinorFontSize: 18px;
 $PrimaryFontSize: 15px;
 $myColor: rgb(65, 147, 145);
 
-$PrimaryColor: #d1c2b2; // background color
+$PrimaryColor: #ddcebe; // background color
 $DarkPimaryColor: #5f483d;
 $BorderColorLight: #9f918b; //little signup/login word
 $ErrorColor: #FF3131; // or password dont match
 $LightColor: #ebe2d8; //cancel button
 $EditColor: #2F5F98; // edit button
 $DeleteColor: #FF5757; // delete button
+$DarkColor: #363432;
+
 
 // Dashboard theme
 // #5F483D - ung sa taas BG color and sa broken border lines/ colors ng mga text
@@ -49,5 +51,5 @@ $DeleteColor: #FF5757; // delete button
     flex-direction: $direction;
     justify-content: $justify ;
     align-items: $align ;
-    
+
 }
