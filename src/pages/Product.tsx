@@ -88,9 +88,9 @@ const content: tableProps = {
     id: "product_id",
     searchPath: "name",
     structure: [
-        { label: "Name", path: "name", width: "20%" },
-        { label: "Price", path: "price", width: "20%" },
-        { label: "Brand", path: "brand", width: "20%" },
+        { label: "Name", path: "name", width: "200px", fontSize: "20px" },
+        { label: "Price", path: "price", width: "200px", fontSize: "20px" },
+        { label: "Brand", path: "brand", width: "250px", fontSize: "20px" },
         {
             label: "Update",
             width: "110px",

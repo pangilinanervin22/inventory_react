@@ -24,7 +24,7 @@ export default function BodyTable({ data, tableProps, sortColoumn, handleSortCol
                 {data.map((curData) => (
                     <tr key={curData[tableProps.id]} >
                         {tableProps.structure.map((curBase: Column) => (
-                            <td key={curBase.label} style={{ width: curBase.width }}  >
+                            <td key={curBase.label} style={{ width: curBase.width, fontSize: curBase.fontSize }}  >
                                 {curData[curBase.path!] || curBase.element!(curData[tableProps.id])}
                             </td>
                         ))}

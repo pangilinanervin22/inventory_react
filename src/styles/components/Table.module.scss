@@ -5,9 +5,6 @@
     padding: 20px;
     border: 7px dashed rgb(109, 98, 94);
     border-radius: 30px;
-    width: 90%;
-    max-width: 1080px;
-    min-width: 720px;
 
     table {
         width: 100%;
@@ -32,7 +29,7 @@
             th {
                 @include flex_container();
                 font-weight: 600;
-                font-size: 18px;
+                font-size: 22px;
                 padding: 5px 10px;
                 cursor: pointer;
             }
@@ -55,7 +52,6 @@
 
             td {
                 padding: 15px 10px;
-                width: 16%;
             }
         }
     }
@@ -158,6 +154,6 @@
 
 .arrow_keys {
     margin-left: 10px;
-    height: 20px;
+    height: 25px;
     fill: $BorderColorLight;
 }
