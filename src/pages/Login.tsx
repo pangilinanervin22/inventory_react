@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { employeeLogin } from "../api";
-import TestInput from "../components/common/TestInput";
+import InputPassword from "../components/common/InputPassword";
 import styles from "../styles/pages/Login.module.scss";
 
 const personSchema = z.object({
@@ -56,7 +56,7 @@ export default function Login() {
                         </div>
                         <div className={`${styles.form_input} ${errors.password && styles.error_input}`}>
                             <label htmlFor="password">Password</label>
-                            <TestInput path="password" register={register} />
+                            <InputPassword path="password" register={register} />
                             {errors.password && <span>{String(errors.password?.message)}</span>}
                         </div>
                         <button disabled={isLoading} type="submit">Login</button>

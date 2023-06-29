@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Root from './pages/Root'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
@@ -13,7 +13,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./styles/app.scss"
 
 function App() {
-  // const { data, isSuccess, error, isLoading } = useQuery({ queryKey: ["employee"], queryFn: getEmployee });
   const nav = useLocation();
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import styles from "../styles/pages/SignUp.module.scss";
 import z from 'zod'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import TestInput from "../components/common/TestInput";
+import TestInput from "../components/common/InputPassword";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { employeeLogin } from "../api";

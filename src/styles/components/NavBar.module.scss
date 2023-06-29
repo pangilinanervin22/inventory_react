@@ -91,7 +91,7 @@
         cursor: pointer;
 
         >:first-child {
-            width: 40px;
+            width: 30px;
             fill: $LightColor;
         }
 
@@ -99,6 +99,7 @@
             font-size: 20px;
             font-family: $PrimaryFontFamily;
             margin-inline: 32px;
+            width: 64px;
         }
     }
 

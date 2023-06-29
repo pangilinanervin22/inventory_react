@@ -3,9 +3,6 @@ import { ReactComponent as Eye } from "../../assets/svg/Eye.svg";
 import { ReactComponent as EyeClose } from "../../assets/svg/EyeCloses.svg";
 import styles from "../../styles/components/common/InputPassword.module.scss";
 
-
-
-
 interface PasswordInputProps {
     path: string;
     register: any; // Pass the "register" function from react-hook-form

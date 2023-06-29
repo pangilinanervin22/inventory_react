@@ -39,11 +39,11 @@ interface thisProps {
 export default function MainTable({
     data,
     structure,
-    // handleAdd,
     // handleEdit,
-    // handleDelete,
     // handleTrash,
     // handleRefresh,
+    // handleAdd,
+    handleDelete,
 }: thisProps) {
 
     const [page, setPage] = useState({
