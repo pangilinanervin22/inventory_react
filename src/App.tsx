@@ -22,14 +22,13 @@ function App() {
   }, [])
 
   useEffect(() => {
-    console.log(nav.pathname);
-
-  }, [nav.pathname])
+    console.log(nav.pathname, localStorage.getItem("token"));
+  }, [nav.pathname, localStorage.getItem("token")])
 
 
   return (
     <>
-      {!localStorage.getItem("token") ?
+      {localStorage.getItem("token") ?
         <Routes>
           <Route path='/' element={<Root />}>
             <Route path='/' element={<Report />} />
