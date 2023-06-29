@@ -1,19 +1,19 @@
 import { QueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { toast } from 'react-toastify';
-import { listEmployee } from "./fake.data/employee";
 
 interface UserLogin {
     username: string;
     password: string;
 }
 
-const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9pZCI6IjUyNjFmZDA0LWVlZmYtNDg1NC05YjMwLWE1MGFiMWFlZDhjZCIsImlzX2FkbWluIjoxLCJpYXQiOjE2ODY4MTE4ODQsImV4cCI6MTY4NzA3MTA4NH0.tUmE9DABHIO1XBeUSAVVpCcBXfVhWmV6YZT4Gr7xO5Q`
+
+const url = "http://localhost:5000/api";
 
 export const axiosInstance = axios.create({
-    baseURL: "http://localhost:5000/api",
+    baseURL: url,
     headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer 2${localStorage.getItem("token") || ""}2`
     }
 });
 
@@ -22,17 +22,23 @@ axiosInstance.interceptors.response.use((config) => {
     return config;
 }, function (error: AxiosError) {
     // Do something with request error
+    console.log(error, error.code);
+    console.log(error.response?.status);
+
+    if (error.response?.status === undefined)
+        return Promise.reject("Server is currently offline");
+
     return Promise.reject(error.response?.data);
 });
 
 
-export async function postEmployee(user: any) {
+export async function signUpEmployee(user: any) {
     const res = await axiosInstance.post("", user);
     return res.data;
 }
 
 export async function getEmployee() {
-    const res = await axiosInstance.get("/employee/");
+    const res = await axiosInstance.get("/employee");
     return res.data;
 }
 
@@ -42,26 +48,28 @@ export async function deleteEmployee(id: number) {
     return deleteUser.data;
 }
 
-export const login = async (data: UserLogin) => {
-    const fetch = new Promise<any>((resolve, reject) => {
-        // Simulating an API call delay
-        const find = listEmployee.find(employee => employee.username == data.username);
+export const employeeLogin = async (data: UserLogin) => {
+    const res = axiosInstance.post("/employee/login", data);
 
-        setTimeout(() => {
-            if (data.username === find?.username && data.password === find.password)
-                resolve(find);
-            else if (!find)
-                reject(new Error('UserName is not exist'));
-            else if (data.password != find.password)
-                reject(new Error(`Invalid password`));
-            else
-                reject(new Error('Invalid username or password'));
+    // const fetch = new Promise<any>((resolve, reject) => {
+    //     // Simulating an API call delay
+    //     const find = listEmployee.find(employee => employee.username == data.username);
 
-        }, 2000);
-    });
+    //     setTimeout(() => {
+    //         if (data.username === find?.username && data.password === find.password)
+    //             resolve(find);
+    //         else if (!find)
+    //             reject(new Error('UserName is not exist'));
+    //         else if (data.password != find.password)
+    //             reject(new Error(`Invalid password`));
+    //         else
+    //             reject(new Error('Invalid username or password'));
+
+    //     }, 2000);
+    // });
 
     return await toast.promise(
-        fetch,
+        res,
         {
             pending: {
                 render() {
@@ -76,8 +84,8 @@ export const login = async (data: UserLogin) => {
                 // icon: "🟢",
             },
             error: {
-                render({ data }) {
-                    return `${data}`
+                render({ data: error }) {
+                    return `${error}`
                 },
             }
         }

@@ -7,11 +7,11 @@ import styles from "../../styles/components/common/InputPassword.module.scss";
 
 
 interface PasswordInputProps {
-    name: string;
+    path: string;
     register: any; // Pass the "register" function from react-hook-form
 }
 
-const TestInput: React.FC<PasswordInputProps> = ({ name, register }) => {
+const TestInput: React.FC<PasswordInputProps> = ({ path, register }) => {
     const [isPasswordVisible, setPasswordVisible] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -21,9 +21,9 @@ const TestInput: React.FC<PasswordInputProps> = ({ name, register }) => {
     return (
         <div className={styles.main}>
             <input
-                {...register(name)} // Register the input with react-hook-form
+                {...register(path)} // Register the input with react-hook-form
                 type={isPasswordVisible ? 'text' : 'password'}
-                name={name}
+                name={path}
             />
             {isPasswordVisible ? <Eye onClick={togglePasswordVisibility} /> :
                 <EyeClose className='' onClick={togglePasswordVisibility} />}

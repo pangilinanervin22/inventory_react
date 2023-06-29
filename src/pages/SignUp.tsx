@@ -3,6 +3,10 @@ import styles from "../styles/pages/SignUp.module.scss";
 import z from 'zod'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import TestInput from "../components/common/TestInput";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { employeeLogin } from "../api";
 
 const personSchema = z.object({
     firstName: z.string()
@@ -31,19 +35,30 @@ type FormSchemaType = z.infer<typeof personSchema>;
 
 export default function SignUp() {
     const navigate = useNavigate();
+    const [isConfrim, setIsConfrim] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
         resolver: zodResolver(personSchema),
     });
 
-    const onSubmit: SubmitHandler<FormSchemaType> = (data: any) => console.log(data);
-    console.log(errors);
+    const { mutate, isLoading, reset } = useMutation(employeeLogin, {
+        onSuccess: (res) => {
+            // Login successful, redirect or perform any desired actions
+            localStorage.setItem("token", JSON.stringify(res.data));
+            window.location.href = '/';
+            reset();
+        },
+    });
+
+    const onSubmit: SubmitHandler<FormSchemaType> = (data: any) => {
+        console.log(data)
+    };
 
     return (
         <main className={styles.signup}>
             <section className={styles.container}>
                 <h1>Sign Up</h1>
                 <div className={styles.privacy_policy}>
-                    <input type="checkbox" name="check" id="check" />
+                    <input type="checkbox" name="check" id="check" checked={isConfrim} onChange={() => setIsConfrim(!isConfrim)} />
                     <p>By signing up, you are setting up a account and agree to our Privacy Policy.</p>
                 </div>
 
@@ -65,17 +80,17 @@ export default function SignUp() {
                     </div>
                     <div className={`${styles.form_input} ${errors.contact_no && styles.error_input}`}>
                         <label>Contact Number</label>
-                        <input {...register("contact_no")} id="contact_no" name="contact_no" type="number" />
+                        <input {...register("contact_no")} id="contact_no" name="contact_no" type="text" />
                         {errors.contact_no && <p>{String(errors.contact_no?.message)}</p>}
                     </div>
                     <div className={`${styles.form_input} ${errors.password && styles.error_input}`}>
-                        <label>Password</label>
-                        <input {...register("password")} id="password" name="password" type="password" />
-                        {errors.password && <p>{String(errors.password?.message)}</p>}
+                        <label htmlFor="password">Password</label>
+                        <TestInput path="password" register={register} />
+                        {errors.password && <span>{String(errors.password?.message)}</span>}
                     </div>
                     <div className={`${styles.form_input} ${errors.confirm && styles.error_input}`}>
                         <label>Confirm Password</label>
-                        <input {...register("confirm")} id="confirm" name="confirm" type="password" />
+                        <TestInput path="confirm" register={register} />
                         {errors.confirm && <p>{String(errors.confirm?.message)}</p>}
                     </div>
 
@@ -84,7 +99,7 @@ export default function SignUp() {
                         label="Password"
                         register={register}
                     /> */}
-                    <button>Sign Up</button>
+                    <button type="submit">Sign Up</button>
                 </form>
                 <div className={styles.link_signin}>
                     <div>

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { login } from "../api";
+import { employeeLogin } from "../api";
 import TestInput from "../components/common/TestInput";
 import styles from "../styles/pages/Login.module.scss";
 
@@ -22,20 +22,21 @@ type FormSchemaType = z.infer<typeof personSchema>;
 export default function Login() {
     const navigate = useNavigate();
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormSchemaType>({
         resolver: zodResolver(personSchema),
     });
 
-    const { mutate, isLoading } = useMutation(login, {
-        onSuccess: (data) => {
+    const { mutate, isLoading } = useMutation(employeeLogin, {
+        onSuccess: (res) => {
             // Login successful, redirect or perform any desired actions
-            localStorage.setItem("account", JSON.stringify(data));
-            console.log("ervin", data, localStorage.getItem("account"));
+            localStorage.setItem("token", JSON.stringify(res.data));
+            window.location.href = '/';
         },
     });
 
     const onSubmit = (data: FormSchemaType) => {
         mutate(data);
+
     };
 
     return (
@@ -55,7 +56,7 @@ export default function Login() {
                         </div>
                         <div className={`${styles.form_input} ${errors.password && styles.error_input}`}>
                             <label htmlFor="password">Password</label>
-                            <TestInput name="password" register={register} />
+                            <TestInput path="password" register={register} />
                             {errors.password && <span>{String(errors.password?.message)}</span>}
                         </div>
                         <button disabled={isLoading} type="submit">Login</button>

@@ -15,9 +15,10 @@ export interface tableProps {
 
 export interface Column {
     label: string;
+    width: string;
+    fontSize?: string;
     path?: string;
     element?: (val: any) => React.ReactElement;
-    width: string;
 }
 
 export interface sortColumnProps {
