@@ -29,9 +29,9 @@ export interface sortColumnProps {
 interface thisProps {
     data: Array<any>;
     structure: tableProps;
-    handleAdd?: Function;
-    handleEdit?: Function;
-    handleDelete?: Function;
+    handleAdd: Function;
+    handleUpdate: Function;
+    handleDelete: Function;
     handleTrash?: Function;
     handleRefresh?: Function;
 }
@@ -39,10 +39,9 @@ interface thisProps {
 export default function MainTable({
     data,
     structure,
-    // handleEdit,
-    // handleTrash,
     // handleRefresh,
-    // handleAdd,
+    handleAdd,
+    handleUpdate,
     handleDelete,
 }: thisProps) {
 
@@ -82,8 +81,15 @@ export default function MainTable({
 
     return (
         <section className={styles.container_table}>
-            <ToolTable text={searchQuery} changeText={onChangeSearchQuery} title={structure.title} />
-            <StructureTable data={sortedData} tableProps={structure} sortColoumn={sortColumn} handleSortColoumn={onHandleSortColoumn} />
+            <ToolTable text={searchQuery} changeText={onChangeSearchQuery} title={structure.title} handleAdd={handleAdd} />
+            <StructureTable
+                data={sortedData}
+                tableProps={structure}
+                sortColoumn={sortColumn}
+                handleSortColoumn={onHandleSortColoumn}
+                deleteColoumn={handleDelete}
+                updateColoumn={handleUpdate}
+            />
             <PaginateTable page={page.current} size={page.size} currentTotal={sortedData.length} total={sizeData} handlePagination={onHandlePagination} />
         </section>
     );
@@ -115,4 +121,5 @@ export default function MainTable({
             current: 0,
         });
     }
+
 }

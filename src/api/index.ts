@@ -37,22 +37,11 @@ export async function signUpEmployee(user: any) {
     return res.data;
 }
 
-export async function getEmployee() {
-    const res = await axiosInstance.get("/employee");
-    return res.data;
-}
-
-export async function deleteEmployee(id: number) {
-    const deleteUser = await axiosInstance.delete("" + id);
-
-    return deleteUser.data;
-}
-
 export const employeeLogin = async (data: UserLogin) => {
     const res = axiosInstance.post("/employee/login", data);
 
     // const fetch = new Promise<any>((resolve, reject) => {
-    //     // Simulating an API call delay
+    // Simulating an API call delay
     //     const find = listEmployee.find(employee => employee.username == data.username);
 
     //     setTimeout(() => {
@@ -94,4 +83,4 @@ export const employeeLogin = async (data: UserLogin) => {
 
 
 
-export const queryClient = new QueryClient();
+export const mainQueryClient = new QueryClient();

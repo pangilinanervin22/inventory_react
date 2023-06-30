@@ -1,7 +1,10 @@
+import { mainQueryClient } from "../api";
+import { deleteEmployee, getEmployee } from "../api/EmployeeApi";
 import MainTable, { tableProps } from "../components/MainTable";
+import DeleteModal from "../components/common/DeleteModal";
+import { useModalStore } from "../components/common/ModalContainer";
 import styles from "../styles/components/Table.module.scss";
-import { getEmployee } from "../api";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 
 const content: tableProps = {
@@ -13,30 +16,32 @@ const content: tableProps = {
         { label: "Username", path: "username", width: "200px", fontSize: "20px" },
         { label: "Position", path: "position", width: "150px", fontSize: "20px" },
         { label: "Phone Number", path: "contact_no", width: "250px", fontSize: "20px" },
-        {
-            label: "Update",
-            width: "110px",
-            element: ((val: any) =>
-                <button className={styles.button_update}
-                    onClick={() => console.log(val)}>EDIT</button>)
-        },
-        {
-            label: "Delete",
-            width: "110px",
-            element: ((val: any) =>
-                <button className={styles.button_delete}
-                    onClick={() => console.log(val)}>DELETE</button>)
-        },
     ]
 };
 
 export default function Employee() {
     const { data, isSuccess } = useQuery(["employee"], getEmployee);
 
-    if (isSuccess) console.log(data);
-    return (
-        <>
-            {isSuccess ? <MainTable structure={content} data={data} /> : "wew"}
-        </>
-    )
+    const { openModal } = useModalStore();
+    const { mutate: mutateDeleteProduct, } = useMutation(deleteEmployee, {
+        onSuccess: () => {
+            mainQueryClient.invalidateQueries({ queryKey: ["employee"] })
+        },
+    });
+
+    if (isSuccess) return (<MainTable structure={content} data={data} handleUpdate={onHandleUpdate}
+        handleDelete={onHandleDelete} handleAdd={onHandleAdd} />)
+
+
+    function onHandleDelete(id: string) {
+        openModal(<DeleteModal confirmAction={() => mutateDeleteProduct(id)} />)
+
+    }
+
+    function onHandleAdd() {
+        // openModal(<ProductAddFormModal />)
+    }
+
+    function onHandleUpdate(data: any) {
+    }
 }

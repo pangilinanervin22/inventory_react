@@ -1,8 +1,11 @@
 import MainTable, { tableProps } from "../components/MainTable";
-import styles from "../styles/components/Table.module.scss";
-import { useQuery } from "@tanstack/react-query";
-import { getProduct } from "../api/product";
-
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { deleteProduct, getProduct } from "../api/ProductApi";
+import { useModalStore } from "../components/common/ModalContainer";
+import DeleteModal from "../components/common/DeleteModal";
+import { mainQueryClient } from "../api";
+import ProductAddFormModal from "../components/Forms/ProductAddFormModal";
+import ProductEditFormModal from "../components/Forms/ProductEditFormModal";
 
 const content: tableProps = {
     title: "Product",
@@ -12,29 +15,35 @@ const content: tableProps = {
         { label: "Name", path: "name", width: "200px", fontSize: "20px" },
         { label: "Price", path: "price", width: "200px", fontSize: "20px" },
         { label: "Brand", path: "brand", width: "250px", fontSize: "20px" },
-        {
-            label: "Update",
-            width: "110px",
-            element: ((val: any) =>
-                <button className={styles.button_update}
-                    onClick={() => console.log(val)}>EDIT</button>)
-        },
-        {
-            label: "Delete",
-            width: "110px",
-            element: ((val: any) =>
-                <button className={styles.button_delete}
-                    onClick={() => console.log(val)}>DELETE</button>)
-        },
+
     ]
 };
 
 export default function Product() {
-    const { data, isSuccess } = useQuery(["product"], getProduct);
+    const { openModal } = useModalStore();
 
-    return (
-        <>
-            {isSuccess ? <MainTable structure={content} data={data} /> : ""}
-        </>
-    )
+    const { data, isSuccess } = useQuery(["product"], getProduct);
+    const { mutate: mutateDeleteProduct, } = useMutation(deleteProduct, {
+        onSuccess: () => {
+            // Login successful, redirect or perform any desired actions
+            mainQueryClient.invalidateQueries({ queryKey: ["product"] })
+        },
+    });
+
+    if (isSuccess) return (
+        <MainTable structure={content} data={data} handleUpdate={onHandleUpdate} handleDelete={onHandleDelete} handleAdd={onHandleAdd} />
+    );
+    else return "";
+
+    function onHandleDelete(id: string) {
+        openModal(<DeleteModal confirmAction={() => mutateDeleteProduct(id)} />)
+    }
+
+    function onHandleAdd() {
+        openModal(<ProductAddFormModal />)
+    }
+
+    function onHandleUpdate(data: any) {
+        openModal(<ProductEditFormModal defaultValues={data} />)
+    }
 }

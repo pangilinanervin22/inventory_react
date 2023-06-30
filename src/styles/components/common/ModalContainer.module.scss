@@ -1,8 +1,9 @@
 @import "../../index";
 
+// main modal container
 .modal {
     @include flex_container();
-    background: rgba($color: #000000, $alpha: 0.3);
+    background: rgba($color: #000000, $alpha: 0.2);
     position: absolute;
     width: 100%;
     height: 100%;
@@ -11,10 +12,46 @@
     .modal_content {
         width: max-content;
         height: max-content;
-        background: $BorderColorLight;
+        position: relative;
     }
 
     .modal_close {
-        background: red;
+        font-family: $TitleFontFamily;
+        font-size: $PrimaryFontSize;
+        position: absolute;
+        right: 0;
+    }
+}
+
+
+// delete modal
+
+.delete_modal_container {
+    background: $DarkerPrimaryColor;
+    color: white;
+    @include flex_container(column);
+    padding: 32px;
+    border-radius: 16px;
+
+
+    >:last-child {
+        margin-top: 16px;
+
+        button {
+            padding: 8px 32px;
+            margin-inline: 16px;
+            border-radius: 8px;
+            font-size: $MajorFontSize;
+        }
+
+        >:first-child {
+            background: white;
+            color: $DarkerPrimaryColor;
+        }
+
+        >:last-child {
+            background: $DeleteColor;
+            color: white;
+        }
     }
 }

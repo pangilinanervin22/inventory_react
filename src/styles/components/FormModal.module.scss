@@ -1,0 +1,86 @@
+@import "../index";
+
+.container {
+    border: 4px solid $DarkerPrimaryColor ;
+    border-radius: 16px;
+    background: $PrimaryColor;
+    padding: 32px;
+}
+
+.form_title {
+    color: $DarkerPrimaryColor;
+    width: 100%;
+    text-align: center;
+}
+
+.form_container {
+    @include flex_container(column);
+    margin-top: 20px;
+
+    .form_input {
+        display: flex;
+        position: relative;
+        padding-bottom: 25px;
+
+        label {
+            margin-right: 16px;
+            width: 120px;
+            text-align: right;
+        }
+
+        input {
+            border-radius: 8px;
+            padding: 8px;
+            width: 300px;
+
+            &:focus {
+                outline: none;
+                border: 3.5px solid $BorderColorLight;
+            }
+        }
+    }
+}
+
+.error_input {
+    label {
+        color: $ErrorColor;
+    }
+
+    span {
+        color: $ErrorColor;
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+        font-size: $PrimaryFontSize;
+        font-family: $PrimaryFontFamily;
+    }
+
+    input {
+        outline: none;
+        border: 3px solid $ErrorColor !important;
+        color: $DeleteColor;
+    }
+}
+
+.button_group {
+    width: 100%;
+    @include flex_container(row, flex-end);
+    margin-top: 16px;
+
+    button {
+        margin-left: 16px;
+        font-size: $MajorFontSize;
+        padding: 8px 16px;
+        border-radius: 8px;
+    }
+
+    >:first-child {
+        background: white;
+        color: $DarkerPrimaryColor;
+    }
+
+    >:last-child {
+        background: $DeleteColor;
+        color: white;
+    }
+}
