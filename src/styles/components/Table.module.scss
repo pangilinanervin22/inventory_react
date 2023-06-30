@@ -122,12 +122,12 @@
             color: white;
             background: none;
             margin-left: 10px;
-            font-size: 15px;
+            font-size: $PrimaryFontSize;
+            font-family: $TitleFontFamily;
         }
 
         >:first-child {
-            width: 30px;
-            height: 30px;
+            height: 24px;
             margin-left: 30px;
             fill: #ffffff;
         }

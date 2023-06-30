@@ -34,7 +34,7 @@ export default function Login() {
         },
     });
 
-    const onSubmit = (data: FormSchemaType) => {
+    const submit = (data: FormSchemaType) => {
         mutate(data);
 
     };
@@ -48,7 +48,7 @@ export default function Login() {
                         <p>Welcome back! Login to access Ajapco Inventory System.</p>
                     </div>
 
-                    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+                    <form className={styles.form} onSubmit={handleSubmit(submit)}>
                         <div className={`${styles.form_input} ${errors.username && styles.error_input}`}>
                             <label htmlFor="username">Email</label>
                             <input {...register("username")} id="username" name="username" type="text" />
