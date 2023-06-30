@@ -30,11 +30,12 @@ const ModalContainer: React.FC = () => {
 
     return (
         <div className={styles.modal}>
+
             <div className={styles.modal_content}>
-                {content}
                 <button className={styles.modal_close} onClick={closeModal}>
-                    Close
+                    x
                 </button>
+                {content}
             </div>
         </div>
     );

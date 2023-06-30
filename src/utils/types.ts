@@ -1,12 +1,12 @@
 export interface iProduct {
-    product_id: string;
+    product_id?: string;
     name: string;
     price: number;
     brand: string;
 }
 
 export interface iStock {
-    stock_id: string;
+    stock_id?: string;
     product_id: string;
     quantity: number;
     production_date: Date;
@@ -14,14 +14,14 @@ export interface iStock {
 }
 
 export interface iSales {
-    sales_id: string;
+    sales_id?: string;
     product_id: string;
     total_price: number;
     date: Date;
 }
 
 export interface iEmployee {
-    employee_id: string;
+    employee_id?: string;
     name: string;
     username: string;
     password?: string;
