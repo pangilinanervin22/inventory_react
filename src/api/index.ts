@@ -1,6 +1,7 @@
 import { QueryClient } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { toast } from 'react-toastify';
+import storeUserProfile from "../app/login";
 
 interface UserLogin {
     username: string;
@@ -10,10 +11,13 @@ interface UserLogin {
 
 const url = "http://localhost:5000/api";
 
+const { getState } = storeUserProfile;
+console.log(getState().token);
+
 export const axiosInstance = axios.create({
     baseURL: url,
     headers: {
-        Authorization: `Bearer 2${localStorage.getItem("token") || ""}2`
+        Authorization: `Bearer ${storeUserProfile.getState().token || ""}`
     }
 });
 
@@ -31,11 +35,6 @@ axiosInstance.interceptors.response.use((config) => {
     return Promise.reject(error.response?.data);
 });
 
-
-export async function signUpEmployee(user: any) {
-    const res = await axiosInstance.post("", user);
-    return res.data;
-}
 
 export const employeeLogin = async (data: UserLogin) => {
     const res = axiosInstance.post("/employee/login", data);
@@ -81,6 +80,54 @@ export const employeeLogin = async (data: UserLogin) => {
     )
 };
 
+export async function signUpEmployee(user: any) {
+    const res = axiosInstance.post("/employee/", user);
+
+    return await toast.promise(
+        res,
+        {
+            pending: {
+                render() {
+                    return "Signup is loading"
+                },
+            },
+            success: {
+                render() {
+                    return `Successfuly Signup your account`
+                },
+            },
+            error: {
+                render({ data: error }) {
+                    return `${error}`
+                },
+            }
+        }
+    )
+};
+
+export const getReportTotal = async () => {
+    const res = await axiosInstance.get("/report/total");
+
+    return res.data;
+}
+
+export const getReportSales = async () => {
+    const res = await axiosInstance.get("/report/total/sales");
+
+    return res.data;
+}
+
+export const getReportPopular = async () => {
+    const res = await axiosInstance.get("/report/popular");
+
+    return res.data;
+}
+
+export const getReportLowStock = async () => {
+    const res = await axiosInstance.get("/report/low");
+
+    return res.data;
+}
 
 
 export const mainQueryClient = new QueryClient();
