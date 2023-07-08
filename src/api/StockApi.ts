@@ -1,19 +1,19 @@
 import { toast } from 'react-toastify';
 import { axiosInstance } from ".";
-import { iProduct } from "../utils/types";
+import { iStock } from "../utils/types";
 
-export async function getProduct() {
-    const res = await axiosInstance.get("/product/");
+export async function getStock() {
+    const res = await axiosInstance.get("/stock/");
     return res.data;
 }
 
-export async function getProductById(id: string) {
-    const res = await axiosInstance.get("/product/" + id);
+export async function getStockById(id: string) {
+    const res = await axiosInstance.get("/stock/" + id);
     return res.data;
 }
 
-export async function deleteProduct(id: string) {
-    const respond = axiosInstance.delete("/product/" + id);
+export async function deleteStock(id: string) {
+    const respond = axiosInstance.delete("/stock/" + id);
 
     return await toast.promise(
         respond,
@@ -37,8 +37,8 @@ export async function deleteProduct(id: string) {
     )
 };
 
-export async function postProduct(product: iProduct) {
-    const respond = axiosInstance.post("/product/", product);
+export async function postStock(stock: iStock) {
+    const respond = axiosInstance.post("/stock/", stock);
 
     return await toast.promise(
         respond,
@@ -62,10 +62,8 @@ export async function postProduct(product: iProduct) {
     )
 }
 
-export async function updateProduct(product: iProduct) {
-    console.log("/product/" + product.product_id, product);
-    const respond = axiosInstance.put("/product/", product);
-
+export async function updateStock(stock: iStock) {
+    const respond = axiosInstance.put("/stock/", stock);
 
     return await toast.promise(
         respond,

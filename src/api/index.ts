@@ -11,9 +11,6 @@ interface UserLogin {
 
 const url = "http://localhost:5000/api";
 
-const { getState } = storeUserProfile;
-console.log(getState().token);
-
 export const axiosInstance = axios.create({
     baseURL: url,
     headers: {
