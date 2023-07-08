@@ -1,16 +1,15 @@
 import React, { useMemo, useState } from "react";
 import StructureTable from "./StructureTable";
-import ToolTable from "./ToolTable";
 import PaginateTable from "./PaginateTable";
 import paginate from "../../utils/paginate";
 import styles from "../../styles/components/Table.module.scss";
 import sortPath from "../../utils/sortPath";
+import ToolTableNoAdd from "./ToolTableNoAdd";
 
-export interface TableStructure {
+export interface tableProps {
     id: string
     title: string
     searchPath: string,
-    defaultSort?: string,
     structure: Column[]
 }
 
@@ -30,19 +29,17 @@ export interface sortColumnProps {
 interface thisProps {
     data: Array<any>;
     isEditable: boolean;
-    structure: TableStructure;
-    handleAdd: Function;
+    structure: tableProps;
     handleUpdate: Function;
     handleDelete: Function;
     handleTrash?: Function;
     handleRefresh?: Function;
 }
 
-export default function MainTable({
+export default function ViewTable({
     data,
     isEditable,
     structure,
-    handleAdd,
     handleUpdate,
     handleDelete,
 }: thisProps) {
@@ -53,7 +50,7 @@ export default function MainTable({
     });
     const [searchQuery, setSearchQuery] = useState("");
     const [sortColumn, setSortColumn] = useState<sortColumnProps>({
-        path: structure.defaultSort || structure.searchPath,
+        path: structure.searchPath,
         order: true,
     });
 
@@ -62,11 +59,9 @@ export default function MainTable({
 
     //sorting by search query filter
     sortedData = useMemo(
-        () => (searchQuery ? sortedData.filter((item: any) => item.name.toLowerCase().includes(searchQuery.toLowerCase())) : sortedData),
+        () => (data.filter((item: any) => item.name.toLowerCase().includes(searchQuery.toLowerCase()))),
         [searchQuery, data]
     );
-
-    //get total data filterd by search
     const sizeData = sortedData.length;
 
     //sorting by path
@@ -85,33 +80,19 @@ export default function MainTable({
 
     return (
         <section className={styles.container_table}>
-            <ToolTable text={searchQuery}
-                isEditable={isEditable}
-                changeText={onChangeSearchQuery}
-                title={structure.title}
-                handleAdd={handleAdd}
-            />
+            <ToolTableNoAdd text={searchQuery} changeText={onChangeSearchQuery} />
             <StructureTable
-                isEditable={isEditable}
                 data={sortedData}
+                isEditable={isEditable}
                 tableProps={structure}
                 sortColoumn={sortColumn}
                 handleSortColoumn={onHandleSortColoumn}
-                deleteColoumn={onDelete}
+                deleteColoumn={handleDelete}
                 updateColoumn={handleUpdate}
             />
             <PaginateTable page={page.current} size={page.size} currentTotal={sortedData.length} total={sizeData} handlePagination={onHandlePagination} />
         </section>
     );
-
-    function onDelete() {
-        handleDelete();
-        setPage({
-            ...page,
-            current: 0,
-        });
-    }
-
 
     function onHandlePagination(inputValue: number) {
         const currentValue = inputValue * page.size;
@@ -135,6 +116,10 @@ export default function MainTable({
             temp.order = temp.order ? false : true;
 
         setSortColumn({ order: temp.order, path: temp.path });
+        setPage({
+            ...page,
+            current: 0,
+        });
     }
 
 }

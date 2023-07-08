@@ -1,28 +1,39 @@
-import { Column, sortColumnProps, tableProps } from ".";
+import { Column, sortColumnProps, TableStructure } from ".";
 import { ReactComponent as Up } from "../../assets/svg/Arrow_Up.svg";
 import { ReactComponent as Down } from "../../assets/svg/Arrow_Down.svg";
 import styles from '../../styles/components/Table.module.scss'
 
-
 interface thisProps {
     data: any[];
-    tableProps: tableProps;
+    tableProps: TableStructure;
     sortColoumn: sortColumnProps;
+    isEditable: boolean;
     handleSortColoumn: Function;
     updateColoumn: Function;
     deleteColoumn: Function;
 }
 
-export default function BodyTable({ data, tableProps, sortColoumn, handleSortColoumn, deleteColoumn, updateColoumn }: thisProps) {
+export default function BodyTable({
+    data,
+    tableProps,
+    sortColoumn,
+    handleSortColoumn,
+    deleteColoumn,
+    updateColoumn,
+    isEditable
+}: thisProps) {
 
     return (
         <table>
             <thead>
                 <tr>
                     {tableProps.structure.map((curBase: Column) => renderCellHeader(curBase, sortColoumn))}
-                    <th style={{ width: "110px", fontSize: "20px" }}>UDPATE</th>
-                    <th style={{ width: "110px", fontSize: "20px" }}>DELETE</th>
-
+                    {isEditable &&
+                        <>
+                            <th style={{ width: "110px", fontSize: "20px" }}>UDPATE</th>
+                            <th style={{ width: "110px", fontSize: "20px" }}>DELETE</th>
+                        </>
+                    }
                 </tr>
             </thead >
             <tbody>
@@ -30,15 +41,19 @@ export default function BodyTable({ data, tableProps, sortColoumn, handleSortCol
                     <tr key={curData[tableProps.id]} >
                         {tableProps.structure.map((curBase: Column) => (
                             <td key={curBase.label} style={{ width: curBase.width, fontSize: curBase.fontSize }}  >
-                                {curData[curBase.path!] || curBase.element!(curData[tableProps.id])}
+                                {curBase.element ? curBase.element!(curData) : curData[curBase.path!]}
                             </td>
                         ))}
-                        <td key={"edit"} style={{ width: "110px", fontSize: "20px" }}  >
-                            {renderUpdate(curData)}
-                        </td>
-                        <td key={"delete"} style={{ width: "110px", fontSize: "20px" }}  >
-                            {renderDelete(curData[tableProps.id])}
-                        </td>
+                        {isEditable &&
+                            <>
+                                <td key={"edit"} style={{ width: "110px", fontSize: "20px" }}  >
+                                    {renderUpdate(curData)}
+                                </td>
+                                <td key={"delete"} style={{ width: "110px", fontSize: "20px" }}  >
+                                    {renderDelete(curData[tableProps.id])}
+                                </td>
+                            </>
+                        }
                     </tr>
                 ))}
             </tbody >
