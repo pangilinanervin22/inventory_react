@@ -17,7 +17,7 @@ export interface iSales {
     sales_id?: string;
     product_id: string;
     total_price: number;
-    date: Date;
+    sales_date: Date;
 }
 
 export interface iEmployee {
