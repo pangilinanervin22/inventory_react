@@ -1,9 +1,10 @@
 import { mainQueryClient } from "../api";
-import { deleteEmployee, getEmployee } from "../api/EmployeeApi";
-import MainTable, { tableProps } from "../components/MainTable";
+import { deleteEmployee, getEmployees } from "../api/EmployeeApi";
+import storeUserProfile from "../app/login";
+import EmployeeEditModal from "../components/Forms/EmployeeEditModal";
+import ViewTable, { tableProps } from "../components/MainTable/ViewTable";
 import DeleteModal from "../components/common/DeleteModal";
 import { useModalStore } from "../components/common/ModalContainer";
-import styles from "../styles/components/Table.module.scss";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 
@@ -20,7 +21,9 @@ const content: tableProps = {
 };
 
 export default function Employee() {
-    const { data, isSuccess } = useQuery(["employee"], getEmployee);
+    const position = storeUserProfile(state => state.position)
+
+    const { data, isSuccess } = useQuery(["employee"], getEmployees);
 
     const { openModal } = useModalStore();
     const { mutate: mutateDeleteProduct, } = useMutation(deleteEmployee, {
@@ -29,8 +32,12 @@ export default function Employee() {
         },
     });
 
-    if (isSuccess) return (<MainTable structure={content} data={data} handleUpdate={onHandleUpdate}
-        handleDelete={onHandleDelete} handleAdd={onHandleAdd} />)
+    if (isSuccess) return (<ViewTable
+        data={data}
+        isEditable={position == "admin"}
+        structure={content}
+        handleUpdate={onHandleUpdate}
+        handleDelete={onHandleDelete} />)
 
 
     function onHandleDelete(id: string) {
@@ -38,10 +45,7 @@ export default function Employee() {
 
     }
 
-    function onHandleAdd() {
-        // openModal(<ProductAddFormModal />)
-    }
-
     function onHandleUpdate(data: any) {
+        openModal(<EmployeeEditModal defaultValues={data} positionEditable={true} />)
     }
 }

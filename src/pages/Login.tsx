@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { employeeLogin } from "../api";
 import InputPassword from "../components/common/InputPassword";
 import styles from "../styles/pages/Login.module.scss";
+import storeUserProfile from "../app/login";
 
 const personSchema = z.object({
     username: z.string()
@@ -20,23 +21,24 @@ type FormSchemaType = z.infer<typeof personSchema>;
 
 
 export default function Login() {
+    const changeCredentials = storeUserProfile(state => state.changeCredentials);
+
     const navigate = useNavigate();
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormSchemaType>({
+    const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
         resolver: zodResolver(personSchema),
     });
 
     const { mutate, isLoading } = useMutation(employeeLogin, {
         onSuccess: (res) => {
             // Login successful, redirect or perform any desired actions
-            localStorage.setItem("token", JSON.stringify(res.data));
+            changeCredentials(structuredClone(res.data));
             window.location.href = '/';
         },
     });
 
     const submit = (data: FormSchemaType) => {
         mutate(data);
-
     };
 
     return (

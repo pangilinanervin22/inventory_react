@@ -4,9 +4,9 @@ import z from 'zod'
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import TestInput from "../components/common/InputPassword";
-import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { employeeLogin } from "../api";
+import { signUpEmployee } from "../api";
+import storeUserProfile from "../app/login";
 
 const personSchema = z.object({
     firstName: z.string()
@@ -34,33 +34,37 @@ type FormSchemaType = z.infer<typeof personSchema>;
 
 
 export default function SignUp() {
+    const changeCredentials = storeUserProfile(state => state.changeCredentials);
+
     const navigate = useNavigate();
-    const [isConfrim, setIsConfrim] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
         resolver: zodResolver(personSchema),
     });
 
-    const { mutate, isLoading, reset } = useMutation(employeeLogin, {
+    const { mutate } = useMutation(signUpEmployee, {
         onSuccess: (res) => {
             // Login successful, redirect or perform any desired actions
-            localStorage.setItem("token", JSON.stringify(res.data));
+            changeCredentials(structuredClone(res.data));
             window.location.href = '/';
-            reset();
         },
     });
 
     const onSubmit: SubmitHandler<FormSchemaType> = (data: any) => {
-        console.log(data)
+        const mutateData = {
+            name: `${data.firstName} ${data.lastName}`,
+            position: "guest",
+            username: data.username,
+            password: data.confirm,
+            contact_no: data.contact_no,
+        }
+
+        mutate(mutateData);
     };
 
     return (
         <main className={styles.signup}>
             <section className={styles.container}>
                 <h1>Sign Up</h1>
-                <div className={styles.privacy_policy}>
-                    <input type="checkbox" name="check" id="check" checked={isConfrim} onChange={() => setIsConfrim(!isConfrim)} />
-                    <p>By signing up, you are setting up a account and agree to our Privacy Policy.</p>
-                </div>
 
                 <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
                     <div className={`${styles.form_input} ${errors.firstName && styles.error_input}`}>
@@ -93,12 +97,6 @@ export default function SignUp() {
                         <TestInput path="confirm" register={register} />
                         {errors.confirm && <p>{String(errors.confirm?.message)}</p>}
                     </div>
-
-                    {/* <TestInput
-                        name="password"
-                        label="Password"
-                        register={register}
-                    /> */}
                     <button type="submit">Sign Up</button>
                 </form>
                 <div className={styles.link_signin}>

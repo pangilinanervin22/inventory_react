@@ -1,37 +1,44 @@
-import MainTable, { tableProps } from "../components/MainTable";
+import MainTable, { TableStructure } from "../components/MainTable";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteProduct, getProduct } from "../api/ProductApi";
 import { useModalStore } from "../components/common/ModalContainer";
 import DeleteModal from "../components/common/DeleteModal";
 import { mainQueryClient } from "../api";
-import ProductAddFormModal from "../components/Forms/ProductAddFormModal";
-import ProductEditFormModal from "../components/Forms/ProductEditFormModal";
+import ProductAddModal from "../components/Forms/ProductAddModal";
+import ProductEditModal from "../components/Forms/ProductEditModal";
+import storeUserProfile from "../app/login";
 
-const content: tableProps = {
-    title: "Product",
+const content: TableStructure = {
     id: "product_id",
+    title: "Product",
     searchPath: "name",
     structure: [
-        { label: "Name", path: "name", width: "200px", fontSize: "20px" },
+        { label: "Name", path: "name", width: "280px", fontSize: "20px" },
         { label: "Price", path: "price", width: "200px", fontSize: "20px" },
         { label: "Brand", path: "brand", width: "250px", fontSize: "20px" },
-
     ]
 };
 
 export default function Product() {
+    const position = storeUserProfile(state => state.position)
+
     const { openModal } = useModalStore();
 
     const { data, isSuccess } = useQuery(["product"], getProduct);
     const { mutate: mutateDeleteProduct, } = useMutation(deleteProduct, {
         onSuccess: () => {
-            // Login successful, redirect or perform any desired actions
             mainQueryClient.invalidateQueries({ queryKey: ["product"] })
         },
     });
 
     if (isSuccess) return (
-        <MainTable structure={content} data={data} handleUpdate={onHandleUpdate} handleDelete={onHandleDelete} handleAdd={onHandleAdd} />
+        <MainTable
+            data={data}
+            isEditable={position != "guest"}
+            structure={content}
+            handleUpdate={onHandleUpdate}
+            handleDelete={onHandleDelete}
+            handleAdd={onHandleAdd} />
     );
     else return "";
 
@@ -40,10 +47,10 @@ export default function Product() {
     }
 
     function onHandleAdd() {
-        openModal(<ProductAddFormModal />)
+        openModal(<ProductAddModal />)
     }
 
     function onHandleUpdate(data: any) {
-        openModal(<ProductEditFormModal defaultValues={data} />)
+        openModal(<ProductEditModal defaultValues={data} />)
     }
 }
