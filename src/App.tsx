@@ -11,8 +11,10 @@ import Report from './pages/Report'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./styles/app.scss"
+import storeUserProfile from './app/login'
 
 function App() {
+  const token = storeUserProfile(state => state.token)
   const nav = useLocation();
 
   useEffect(() => {
@@ -21,13 +23,12 @@ function App() {
   }, [])
 
   useEffect(() => {
-    console.log(nav.pathname, localStorage.getItem("token"));
   }, [nav.pathname, localStorage.getItem("token")])
 
 
   return (
     <>
-      {localStorage.getItem("token") ?
+      {token ?
         <Routes>
           <Route path='/' element={<Root />}>
             <Route path='/' element={<Report />} />
