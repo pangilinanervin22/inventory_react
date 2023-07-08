@@ -20,9 +20,9 @@
 
             tr {
                 display: flex;
+                justify-content: space-evenly;
                 width: 100%;
                 overflow: hidden;
-                justify-content: space-evenly;
                 background: #F3EEE8;
             }
 
@@ -52,6 +52,7 @@
 
             td {
                 padding: 15px 10px;
+                @include flex_container();
             }
         }
     }
@@ -88,7 +89,7 @@
     align-items: center;
     margin-bottom: 20px;
 
-    >:first-child {
+    .search {
         display: flex;
         align-items: center;
         width: 70%;
@@ -110,7 +111,7 @@
         }
     }
 
-    >:last-child {
+    .add_button {
         display: flex;
         align-items: center;
         width: 200px;
@@ -133,6 +134,36 @@
         }
     }
 }
+
+.tool_table_noAdd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    >:first-child {
+        display: flex;
+        align-items: center;
+        width: 40%;
+        height: 40px;
+
+        >:first-child {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        >:last-child {
+            width: 30px;
+            height: 30px;
+            position: relative;
+            right: 50px;
+            fill: rgb(109, 98, 94);
+        }
+    }
+}
+
 
 .paginate_table {
     @include flex_container(row, flex-end);

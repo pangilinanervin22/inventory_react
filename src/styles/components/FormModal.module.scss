@@ -1,10 +1,58 @@
 @import "../index";
 
-.container {
-    border: 4px solid $DarkerPrimaryColor ;
+.main_group {
+    @include flex_container();
+
+    >div {
+        margin-inline: 32px;
+    }
+
+    border: 4px solid $DarkColor ;
     border-radius: 16px;
     background: $PrimaryColor;
     padding: 32px;
+}
+
+.container {
+    border: 4px solid $DarkPrimaryColor ;
+    background: $PrimaryColor;
+    border-radius: 16px;
+    padding: 32px;
+}
+
+.form_image_container {
+    @include flex_container(column);
+    padding-top: 32px;
+    border: 4px solid $DarkPrimaryColor ;
+    background: $PrimaryColor;
+    border-radius: 16px;
+    padding: 32px;
+    width: 300px;
+
+    img {
+        border-radius: 50%;
+        margin-bottom: 32px;
+    }
+
+    button,
+    input {
+        border-radius: 8px;
+        color: $DarkerPrimaryColor;
+    }
+
+    button {
+        background: $DarkerPrimaryColor;
+        font-size: $MinorFontSize ;
+        color: white;
+        padding: 8px;
+        margin: 16px;
+        text-align: center;
+    }
+
+    .disable {
+        background: gray;
+    }
+
 }
 
 .form_title {
@@ -24,11 +72,12 @@
 
         label {
             margin-right: 16px;
-            width: 120px;
+            width: 130px;
             text-align: right;
         }
 
-        input {
+        input,
+        select {
             border-radius: 8px;
             padding: 8px;
             width: 300px;
@@ -38,6 +87,8 @@
                 border: 3.5px solid $BorderColorLight;
             }
         }
+
+
     }
 }
 

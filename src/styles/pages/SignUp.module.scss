@@ -39,23 +39,23 @@
     }
 }
 
-.privacy_policy {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
+// .privacy_policy {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
+//     justify-content: flex-start;
 
-    input {
-        border-radius: 10px;
-        color: white;
-        height: 18px;
-        width: 18px;
-        margin: 10px;
-        font-family: $TitleFontFamily;
-        font-size: $PrimaryFontSize;
-        background: $DarkColor;
-    }
-}
+//     input {
+//         border-radius: 10px;
+//         color: white;
+//         height: 18px;
+//         width: 18px;
+//         margin: 10px;
+//         font-family: $TitleFontFamily;
+//         font-size: $PrimaryFontSize;
+//         background: $DarkColor;
+//     }
+// }
 
 .form {
     display: flex;

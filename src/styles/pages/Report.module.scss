@@ -16,6 +16,10 @@
         padding: 10px;
         font-family: $TitleFontFamily;
 
+        span {
+            color: $DeleteColor;
+        }
+
         >:first-child {
             color: $ErrorColor;
         }
@@ -26,73 +30,77 @@
         }
     }
 
-    .display_container {
-        @include flex_container(row, space-between);
-        height: 120px;
-        width: 100%;
-        margin-bottom: 15px;
+}
 
-        .display_item {
-            @include flex_container(column, flex-start, flex-start);
-            height: 100%;
-            width: 32%;
-            border: 4px dashed $DarkerPrimaryColor;
-            background: $PrimaryColor;
-            border-radius: 10px;
-            padding: 10px;
+.display_container {
+    @include flex_container(row, space-between);
+    height: 120px;
+    width: 100%;
+    margin-bottom: 15px;
+
+    .display_item {
+        @include flex_container(column, flex-start, flex-start);
+        height: 100%;
+        width: 32%;
+        border: 4px dashed $DarkerPrimaryColor;
+        background: $PrimaryColor;
+        border-radius: 10px;
+        padding: 10px;
+
+        >:first-child {
+            font-family: $TitleFontFamily;
+            color: $DarkerPrimaryColor;
+            font-size: $MinorFontSize;
+        }
+
+        >:last-child {
+            @include flex_container(row, flex-start);
+            width: 100%;
+            height: 70%;
+
 
             >:first-child {
-                font-family: $TitleFontFamily;
-                color: $DarkerPrimaryColor;
-                font-size: $MinorFontSize;
+                height: 80%;
+                width: max-content;
+                margin-inline: 10px 30px;
+                fill: $DarkerPrimaryColor ;
+
             }
 
             >:last-child {
-                @include flex_container(row, flex-start);
-                width: 100%;
-                height: 70%;
-
-
-                >:first-child {
-                    height: 80%;
-                    margin-inline: 10px 30px;
-                    fill: $DarkerPrimaryColor ;
-
-                }
-
-                >:last-child {
-                    font-size: 50px;
-                    color: $DarkerPrimaryColor;
-                }
+                font-size: 50px;
+                color: $DarkerPrimaryColor;
             }
         }
     }
+}
 
-    .chart_container {
-        @include flex_container(row, space-between);
-        flex-wrap: wrap;
-        height: 300px;
-        width: 100%;
+.chart_container {
+    @include flex_container(row, space-between);
+    flex-wrap: wrap;
+    height: 300px;
+    width: 100%;
+    font-family: $TitleFontFamily;
+    color: $DarkerPrimaryColor;
+    font-size: $MajorFontSize;
 
-        >* {
-            @include flex_container(column);
-            border: 4px dashed $DarkerPrimaryColor;
-            border-radius: 10px;
-            background: $PrimaryColor;
-            height: 100%;
-            padding: 10px 15px;
-        }
-
-        .bar {
-            text-align: left;
-            width: 70%;
-            min-width: 300px;
-        }
-
-        .pie {
-            width: 27%;
-            min-width: 300px;
-        }
+    >* {
+        @include flex_container(column);
+        border: 4px dashed $DarkerPrimaryColor;
+        border-radius: 10px;
+        background: $PrimaryColor;
+        height: 100%;
+        padding: 10px 15px;
     }
 
+    .bar {
+        text-align: left;
+        width: 60%;
+        min-width: 300px;
+    }
+
+    .pie {
+        width: 38%;
+        min-width: 300px;
+    }
 }
