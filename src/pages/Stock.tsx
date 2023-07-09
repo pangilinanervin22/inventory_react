@@ -52,8 +52,8 @@ export default function Stock() {
     );
     else return "No data"
 
-    function onHandleDelete(id: string) {
-        openModal(<DeleteModal confirmAction={() => muatateDeleteStock(id)} />)
+    function onHandleDelete(data: any) {
+        openModal(<DeleteModal confirmAction={() => muatateDeleteStock(data.stock_id)} />)
     }
 
     function onHandleAdd() {

@@ -104,8 +104,8 @@ export default function MainTable({
         </section>
     );
 
-    function onDelete() {
-        handleDelete();
+    function onDelete(data: any) {
+        handleDelete(data);
         setPage({
             ...page,
             current: 0,

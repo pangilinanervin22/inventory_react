@@ -23,6 +23,8 @@ function App() {
   }, [])
 
   useEffect(() => {
+    console.log(token, nav);
+
   }, [nav.pathname, localStorage.getItem("token")])
 
 

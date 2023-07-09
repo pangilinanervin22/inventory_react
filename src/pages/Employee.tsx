@@ -6,6 +6,7 @@ import ViewTable, { tableProps } from "../components/MainTable/ViewTable";
 import DeleteModal from "../components/common/DeleteModal";
 import { useModalStore } from "../components/common/ModalContainer";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import NotAllowedModal from "../components/common/NotAllowedModal";
 
 
 const content: tableProps = {
@@ -23,7 +24,7 @@ const content: tableProps = {
 export default function Employee() {
     const position = storeUserProfile(state => state.position)
 
-    const { data, isSuccess } = useQuery(["employee"], getEmployees);
+    const { data: employeeData, isSuccess } = useQuery(["employee"], getEmployees);
 
     const { openModal } = useModalStore();
     const { mutate: mutateDeleteProduct, } = useMutation(deleteEmployee, {
@@ -33,15 +34,18 @@ export default function Employee() {
     });
 
     if (isSuccess) return (<ViewTable
-        data={data}
-        isEditable={position == "admin"}
+        data={employeeData}
+        isEditable={position == "admin" || position == "owner"}
         structure={content}
         handleUpdate={onHandleUpdate}
         handleDelete={onHandleDelete} />)
 
 
-    function onHandleDelete(id: string) {
-        openModal(<DeleteModal confirmAction={() => mutateDeleteProduct(id)} />)
+    function onHandleDelete(data: any) {
+        if (data.position == "owner")
+            openModal(<NotAllowedModal titleDelete="Owner's account can't be delete" />)
+        else
+            openModal(<DeleteModal confirmAction={() => mutateDeleteProduct(data.employee_id)} />)
 
     }
 
