@@ -42,8 +42,8 @@ export default function Product() {
     );
     else return "";
 
-    function onHandleDelete(id: string) {
-        openModal(<DeleteModal confirmAction={() => mutateDeleteProduct(id)} />)
+    function onHandleDelete(data: any) {
+        openModal(<DeleteModal confirmAction={() => mutateDeleteProduct(data.product_id)} />)
     }
 
     function onHandleAdd() {
@@ -51,6 +51,8 @@ export default function Product() {
     }
 
     function onHandleUpdate(data: any) {
+        console.log(data, "232");
+
         openModal(<ProductEditModal defaultValues={data} />)
     }
 }

@@ -34,7 +34,6 @@ interface thisProps {
 
 
 export default function EmployeeEditModal({ defaultValues, positionEditable }: thisProps) {
-
     const [selectedFile, setSelectedFile] = useState<string>(defaultValues.img_src);
 
     const { closeModal } = useModalStore();
@@ -84,7 +83,7 @@ export default function EmployeeEditModal({ defaultValues, positionEditable }: t
                             onChange={(e) => setValue("position", e.target.value)}
                         >
                             <option key={"guest"} value={"guest"}>
-                                Guess
+                                Guest
                             </option>
                             <option key={"employee"} value={"employee"}>
                                 Employee

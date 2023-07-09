@@ -21,7 +21,7 @@ export default function CardRerport() {
         <div className={styles.display_container}>
             <div className={styles.display_item}>
                 <h3>
-                    Total of {month}
+                    Total Sales of {month}
                 </h3>
                 <div>
                     <SalesIcon />

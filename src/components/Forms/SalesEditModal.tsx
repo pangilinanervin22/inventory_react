@@ -76,7 +76,7 @@ export default function SalesEditModal({ defaultValues }: { defaultValues: any }
                     {errors.total_price && <span>{String(errors.total_price?.message)}</span>}
                 </div>
                 <div className={`${styles.form_input} ${errors.sales_date && styles.error_input}`}>
-                    <label htmlFor="sales_date">Epiration Date</label>
+                    <label htmlFor="sales_date">Sales Date</label>
                     <input {...register("sales_date", { valueAsDate: true })} id="sales_date" name="sales_date" type="date" />
                     {errors.sales_date && <span>{String(errors.sales_date?.message)}</span>}
                 </div>

@@ -47,10 +47,16 @@ export default function BodyTable({
                         {isEditable &&
                             <>
                                 <td key={"edit"} style={{ width: "110px", fontSize: "20px" }}  >
-                                    {renderUpdate(curData)}
+                                    <button className={styles.button_update} onClick={() => updateColoumn(curData)}>
+                                        EDIT
+                                    </button>
                                 </td>
                                 <td key={"delete"} style={{ width: "110px", fontSize: "20px" }}  >
-                                    {renderDelete(curData[tableProps.id])}
+                                    <button className={styles.button_delete} onClick={() => {
+                                        deleteColoumn(curData);
+                                    }}>
+                                        DELETE
+                                    </button>
                                 </td>
                             </>
                         }
@@ -74,20 +80,5 @@ export default function BodyTable({
     function renderIcon(isAsscending: boolean) {
         return isAsscending ? <Up className={styles.arrow_keys} /> : <Down className={styles.arrow_keys} />
     }
-
-    function renderUpdate(data: any) {
-        return <button className={styles.button_update} onClick={() => {
-            updateColoumn(data);
-        }}>
-            EDIT
-        </button>;
-    }
-
-    function renderDelete(id: string) {
-        return <button className={styles.button_delete} onClick={() => deleteColoumn(id)}>
-            DELETE
-        </button>;
-    }
-
 
 }

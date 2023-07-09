@@ -16,7 +16,7 @@ const content: TableStructure = {
     structure: [
         { label: "Product", path: "name", width: "250px", fontSize: "20px" },
         { label: "Total Sales", path: "total_price", width: "200px", fontSize: "20px" },
-        { label: "Production Date", path: "sales_date", element: ((val) => renderDate(val["sales_date"])), width: "250px", fontSize: "20px" },
+        { label: "Sales Date", path: "sales_date", element: ((val) => renderDate(val["sales_date"])), width: "250px", fontSize: "20px" },
     ]
 };
 
@@ -51,8 +51,8 @@ export default function Sales() {
     );
     else return "";
 
-    function onHandleDelete(id: string) {
-        openModal(<DeleteModal confirmAction={() => muatateDeleteSales(id)} />)
+    function onHandleDelete(data: any) {
+        openModal(<DeleteModal confirmAction={() => muatateDeleteSales(data.sales_id)} />)
     }
 
     function onHandleAdd() {
