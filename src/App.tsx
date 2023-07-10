@@ -8,7 +8,6 @@ import Sales from './pages/Sales'
 import Inventory from './pages/Stock'
 import Product from './pages/Product'
 import Report from './pages/Report'
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./styles/app.scss"
 import storeUserProfile from './app/login'
@@ -47,19 +46,6 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
         </Routes>
       }
-
-      <ToastContainer
-        position="bottom-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover={false}
-        theme="colored"
-      />
     </>
   )
 }

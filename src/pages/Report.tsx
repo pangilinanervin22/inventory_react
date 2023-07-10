@@ -32,7 +32,7 @@ export default function Report() {
       <CardRerport />
       <div className={styles.chart_container}>
         <div className={styles.bar}>
-          <h2 style={{ width: "100%" }}>Sales Last 5 months</h2>
+          <h2 style={{ width: "100%" }}>Sales Last 6 months</h2>
           <SalesChart />
         </div>
         <div className={styles.pie}>

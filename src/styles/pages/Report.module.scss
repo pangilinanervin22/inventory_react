@@ -82,7 +82,7 @@
     width: 100%;
     font-family: $TitleFontFamily;
     color: $DarkerPrimaryColor;
-    font-size: $MajorFontSize;
+    font-size: 14px;
 
     >* {
         @include flex_container(column);

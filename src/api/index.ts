@@ -34,7 +34,11 @@ axiosInstance.interceptors.response.use((config) => {
 
 
 export const employeeLogin = async (data: UserLogin) => {
-    const res = axiosInstance.post("/employee/login", data);
+    const res = axiosInstance.post("/employee/login", data).
+        then((res) => {
+            alert("Successfully login"); return res;
+        }
+        );
 
     // const fetch = new Promise<any>((resolve, reject) => {
     // Simulating an API call delay
@@ -52,7 +56,6 @@ export const employeeLogin = async (data: UserLogin) => {
 
     //     }, 2000);
     // });
-
     return await toast.promise(
         res,
         {
@@ -78,7 +81,11 @@ export const employeeLogin = async (data: UserLogin) => {
 };
 
 export async function signUpEmployee(user: any) {
-    const res = axiosInstance.post("/employee/", user);
+    const res = axiosInstance.post("/employee/", user).
+        then((res) => {
+            alert("Your account is pending for approval"); return res;
+        }
+        );
 
     return await toast.promise(
         res,
