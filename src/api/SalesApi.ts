@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import { axiosInstance } from ".";
 import { iSales } from "../utils/types";
+import { valueItem } from '../components/pos/POSComponent';
 
 export async function getSales() {
     const res = await axiosInstance.get("/sales/");
@@ -76,6 +77,31 @@ export async function updateSales(sales: iSales) {
             success: {
                 render() {
                     return `Successfuly update`
+                },
+            },
+            error: {
+                render({ data: error }) {
+                    return `${error}`
+                },
+            }
+        }
+    )
+};
+
+export async function postManySales(listValue: valueItem[]) {
+    const respond = axiosInstance.post("/sales/pos", listValue);
+
+    return await toast.promise(
+        respond,
+        {
+            pending: {
+                render() {
+                    return "Request is loading"
+                },
+            },
+            success: {
+                render({ data: res }) {
+                    return `${res?.data}`
                 },
             },
             error: {
