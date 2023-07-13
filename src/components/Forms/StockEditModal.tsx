@@ -8,9 +8,7 @@ import { getProduct } from "../../api/ProductApi";
 import { mainQueryClient } from "../../api";
 import { updateStock } from "../../api/StockApi";
 import { iProduct } from "../../utils/types";
-import getDate from "../../utils/getDate";
-
-
+import { convertStringDate } from "../../utils/date";
 
 const thisProps = z.object({
     product_id: z.string()
@@ -27,14 +25,17 @@ type FormSchemaType = z.infer<typeof thisProps>;
 
 export default function StockEditModal({ defaultValues }: { defaultValues: any }) {
     const { closeModal } = useModalStore();
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormSchemaType>({
+    const { register, handleSubmit, setValue, formState: { errors }, getValues } = useForm<FormSchemaType>({
         resolver: zodResolver(thisProps),
         defaultValues: {
             ...defaultValues,
-            production_date: getDate(defaultValues.production_date),
-            expiration_date: getDate(defaultValues.expiration_date),
+            production_date: convertStringDate(defaultValues.production_date),
+            expiration_date: convertStringDate(defaultValues.expiration_date),
         }
     });
+
+    console.log(defaultValues, getValues());
+
 
     const { data: productList, isSuccess } = useQuery(["product"], getProduct);
     const { mutate } = useMutation(updateStock, {

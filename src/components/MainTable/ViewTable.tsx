@@ -98,7 +98,6 @@ export default function ViewTable({
         const currentValue = inputValue * page.size;
 
         if (currentValue >= sizeData || currentValue < 0) return;
-
         setPage({ ...page, current: inputValue });
     }
 
