@@ -112,7 +112,6 @@ export default function MainTable({
         });
     }
 
-
     function onHandlePagination(inputValue: number) {
         const currentValue = inputValue * page.size;
 

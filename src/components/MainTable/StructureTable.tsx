@@ -37,7 +37,7 @@ export default function BodyTable({
                 </tr>
             </thead >
             <tbody>
-                {data.map((curData) => (
+                {data.length == 0 ? <h1>{"No data"}</h1> : data.map((curData) => (
                     <tr key={curData[tableProps.id]} >
                         {tableProps.structure.map((curBase: Column) => (
                             <td key={curBase.label} style={{ width: curBase.width, fontSize: curBase.fontSize }}  >
