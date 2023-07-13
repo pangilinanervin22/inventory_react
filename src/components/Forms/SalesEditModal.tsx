@@ -8,7 +8,7 @@ import { getProduct } from "../../api/ProductApi";
 import { mainQueryClient } from "../../api";
 import { iProduct } from "../../utils/types";
 import { updateSales } from "../../api/SalesApi";
-import getDate from "../../utils/getDate";
+import { convertStringDate } from "../../utils/date";
 
 
 const thisProps = z.object({
@@ -29,7 +29,7 @@ export default function SalesEditModal({ defaultValues }: { defaultValues: any }
         resolver: zodResolver(thisProps),
         defaultValues: {
             ...defaultValues,
-            sales_date: getDate(defaultValues.sales_date),
+            sales_date: convertStringDate(defaultValues.sales_date),
         }
     });
 

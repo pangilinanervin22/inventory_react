@@ -7,34 +7,39 @@ import { deleteStock, getStock } from "../api/StockApi";
 import StockAddModal from "../components/Forms/StockAddModal";
 import StockEditModal from "../components/Forms/StockEditModal";
 import storeUserProfile from "../app/login";
+import { convertDate } from "../utils/date";
 
 const content: TableStructure = {
     title: "Stock",
     id: "stock_id",
     searchPath: "name",
-    defaultSort: "production_date",
+    defaultSort: "name",
     structure: [
         { label: "Product", path: "name", width: "250px", fontSize: "20px" },
-        { label: "Quantity", path: "quantity", element: ((val) => <span style={{ color: val["quantity"] < 5 ? "red" : "" }}>{val["quantity"]}</span>), width: "150px", fontSize: "20px" },
-        { label: "Production Date", path: "production_date", element: ((val) => renderDate(val["production_date"])), width: "210px", fontSize: "20px" },
-        { label: "Expiration Date", path: "expiration_date", element: ((val) => renderDate(val["expiration_date"])), width: "210px", fontSize: "20px" },
+        {
+            label: "Quantity", path: "quantity",
+            width: "150px", fontSize: "20px",
+            element: ((val) => <span style={{ color: val["quantity"] < 5 ? "red" : "" }}>{val["quantity"]}</span>),
+        },
+        {
+            label: "Production Date", path: "production_date",
+            width: "210px", fontSize: "20px",
+            element: ((val) => <span>{convertDate(val["production_date"])}</span>)
+        },
+        {
+            label: "Expiration Date", path: "expiration_date",
+            width: "210px", fontSize: "20px",
+            element: ((val) => <span>{convertDate(val["expiration_date"])}</span>)
+        },
     ]
 };
 
-function renderDate(input: any) {
-    const date = new Date(input);
-    const month = date.getMonth() + 1; // getMonth() returns a zero-based index, so we add 1
-    const day = date.getDate();
-    const year = date.getFullYear();
-
-    return <span>{`${month}/${day}/${year}`}</span>;
-}
 
 export default function Stock() {
     const position = storeUserProfile(state => state.position)
     const { openModal } = useModalStore();
 
-    const { data, isSuccess } = useQuery(["stock"], getStock);
+    const { data, isSuccess } = useQuery({ queryKey: ["stock"], queryFn: getStock });
     const { mutate: muatateDeleteStock, } = useMutation(deleteStock, {
         onSuccess: () => {
             mainQueryClient.invalidateQueries({ queryKey: ["stock"] })
@@ -61,7 +66,6 @@ export default function Stock() {
     }
 
     function onHandleUpdate(data: any) {
-
         openModal(<StockEditModal defaultValues={data} />)
     }
 }

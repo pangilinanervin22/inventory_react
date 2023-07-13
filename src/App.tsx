@@ -11,6 +11,8 @@ import Report from './pages/Report'
 import 'react-toastify/dist/ReactToastify.css';
 import "./styles/app.scss"
 import storeUserProfile from './app/login'
+import TestComponent from './components/common/TestComponent'
+import POSComponent from './components/pos/POSComponent'
 
 function App() {
   const token = storeUserProfile(state => state.token)
@@ -38,6 +40,7 @@ function App() {
             <Route path='/inventory' element={<Inventory />} />
             <Route path='/employee' element={<Employee />} />
             <Route path='/product' element={<Product />} />
+            <Route path='/test' element={<POSComponent />} />
             <Route path='*' element={<h1>Not Found</h1>} />
           </Route>
         </Routes> :
