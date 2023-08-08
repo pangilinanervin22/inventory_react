@@ -57,7 +57,6 @@ function POSComponent() {
     return (
         <>
             <section className={styles.container}>
-
                 <div className={styles.header}>
                     <div className={styles.add_button} onClick={() => setShowPick(true)}>
                         <Add />
@@ -75,7 +74,7 @@ function POSComponent() {
                         <div>Input</div>
                     </div>
                     <div className={styles.list_container}>
-                        {visualList.length && visualList.map((item: any) => <div key={item.stock_id} className={styles.list_item}>
+                        {visualList.length == 0 ? [] : visualList.map((item: any) => <div key={item.stock_id} className={styles.list_item}>
                             <div>{item.name}</div>
                             <div>{convertDate(item.production_date)}</div>
                             <div>{convertDate(item.expiration_date)}</div>
@@ -110,17 +109,18 @@ function POSComponent() {
                 </div>
             </section>
 
-            {showPick && <section className={styles.pick_table_container}>
-                <button className={styles.button_close}
-                    onClick={() => setShowPick(false)}>
-                    X
-                </button>
-                <PickTable
-                    data={isSuccess ? data : []}
-                    handlePick={addItem}
-                    structure={bodyTable}
-                />
-            </section>
+            {showPick &&
+                <section className={styles.pick_table_container}>
+                    <button className={styles.button_close}
+                        onClick={() => setShowPick(false)}>
+                        X
+                    </button>
+                    <PickTable
+                        data={isSuccess ? data : []}
+                        handlePick={addItem}
+                        structure={bodyTable}
+                    />
+                </section>
             }
         </>
     );
@@ -153,9 +153,9 @@ function POSComponent() {
 
         if (index !== -1) {
             const updatedData = [...valueList]; // Create a copy of the array
-            updatedData[index].quantity = inputValue; // Update the desired property of the object
+            updatedData[index].quantity = inputValue; // Update the property of the object
 
-            setValueList(updatedData); // Update the state with the modified array
+            setValueList(updatedData);
         }
     }
 };

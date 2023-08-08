@@ -3,8 +3,8 @@ import PaginateTable from "../MainTable/PaginateTable";
 import paginate from "../../utils/paginate";
 import styles from "../../styles/components/Table.module.scss";
 import sortPath from "../../utils/sortPath";
-import ToolTableNoAdd from "../MainTable/ToolTableNoAdd";
 import PickTableBody from "./PickTableBody";
+import ToolTable from "../MainTable/ToolTable";
 
 export interface tableProps {
     id: string
@@ -74,12 +74,16 @@ export default function PickTable({
 
     return (
         <section className={styles.container_table} style={{ border: "solid 3px", borderRadius: "0", height: "500px" }}>
-            <ToolTableNoAdd text={searchQuery} changeText={onChangeSearchQuery} />
+            <ToolTable
+                searchValue={searchQuery}
+                changeText={onChangeSearchQuery}
+                isHaveAdd={false}
+            />
             <PickTableBody
                 data={sortedData}
                 tableProps={structure}
-                sortColoumn={sortColumn}
-                handleSortColoumn={onHandleSortColoumn}
+                sortColumn={sortColumn}
+                handleSortColumn={onHandleSortColumn}
                 handlePick={handleUpdate}
             />
             <PaginateTable page={page.current} size={page.size} currentTotal={sortedData.length} total={sizeData} handlePagination={onHandlePagination} />
@@ -102,7 +106,7 @@ export default function PickTable({
         });
     }
 
-    function onHandleSortColoumn(path: string, order = true) {
+    function onHandleSortColumn(path: string, order = true) {
         const temp = { order, path };
         if (temp.path == sortColumn.path)
             temp.order = temp.order ? false : true;

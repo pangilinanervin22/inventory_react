@@ -2,14 +2,14 @@ import { mainQueryClient } from "../api";
 import { deleteEmployee, getEmployees } from "../api/EmployeeApi";
 import storeUserProfile from "../app/login";
 import EmployeeEditModal from "../components/Forms/EmployeeEditModal";
-import ViewTable, { tableProps } from "../components/MainTable/ViewTable";
 import DeleteModal from "../components/common/DeleteModal";
 import { useModalStore } from "../components/common/ModalContainer";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import NotAllowedModal from "../components/common/NotAllowedModal";
+import MainTable, { TableStructure } from "../components/MainTable";
 
 
-const content: tableProps = {
+const content: TableStructure = {
     title: "Employee",
     id: "employee_id",
     searchPath: "name",
@@ -33,7 +33,7 @@ export default function Employee() {
         },
     });
 
-    if (isSuccess) return (<ViewTable
+    if (isSuccess) return (<MainTable
         data={employeeData}
         isEditable={position == "admin" || position == "owner"}
         structure={content}

@@ -6,16 +6,16 @@ import styles from '../../styles/components/Table.module.scss'
 interface thisProps {
     data: any[];
     tableProps: TableStructure;
-    sortColoumn: sortColumnProps;
-    handleSortColoumn: Function;
+    sortColumn: sortColumnProps;
+    handleSortColumn: Function;
     handlePick: Function;
 }
 
 export default function PickTableBody({
     data,
     tableProps,
-    sortColoumn,
-    handleSortColoumn,
+    sortColumn: sortColumn,
+    handleSortColumn: handleSortColumn,
     handlePick,
 }: thisProps) {
 
@@ -23,7 +23,7 @@ export default function PickTableBody({
         <table>
             <thead>
                 <tr>
-                    {tableProps.structure.map((curBase: Column) => renderCellHeader(curBase, sortColoumn))}
+                    {tableProps.structure.map((curBase: Column) => renderCellHeader(curBase, sortColumn))}
                     <>
                         <th style={{ width: "110px", fontSize: "20px" }}>Action</th>
                     </>
@@ -56,13 +56,13 @@ export default function PickTableBody({
             return <th key={column.label} style={{ width: column.width }} > {column.label} </th>
 
         return <th key={column.label} style={{ width: column.width }}
-            onClick={() => { handleSortColoumn(column.path, currentSort.order); }} >
+            onClick={() => { handleSortColumn(column.path, currentSort.order); }} >
             {column.label} {currentSort.path == column.path && renderIcon(currentSort.order)}
         </th>
     }
 
-    function renderIcon(isAsscending: boolean) {
-        return isAsscending ? <Up className={styles.arrow_keys} /> : <Down className={styles.arrow_keys} />
+    function renderIcon(isAscending: boolean) {
+        return isAscending ? <Up className={styles.arrow_keys} /> : <Down className={styles.arrow_keys} />
     }
 
 }

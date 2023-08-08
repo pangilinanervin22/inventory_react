@@ -31,10 +31,9 @@ interface thisProps {
     data: Array<any>;
     isEditable: boolean;
     structure: TableStructure;
-    handleAdd: Function;
     handleUpdate: Function;
     handleDelete: Function;
-    handleTrash?: Function;
+    handleAdd?: Function;
     handleRefresh?: Function;
 }
 
@@ -66,15 +65,12 @@ export default function MainTable({
         [searchQuery, data]
     );
 
-    //get total data filterd by search
+    //get total data filtered by search
     const sizeData = sortedData.length;
 
     //sorting by path
     sortedData = useMemo(
-        () => {
-            console.log("sort", sortColumn);
-            return (sortedData = sortPath(sortedData, sortColumn.path, sortColumn.order))
-        },
+        () => (sortedData = sortPath(sortedData, sortColumn.path, sortColumn.order)),
         [sortColumn, searchQuery, data]);
 
     //pagination data
@@ -85,20 +81,22 @@ export default function MainTable({
 
     return (
         <section className={styles.container_table}>
-            <ToolTable text={searchQuery}
-                isEditable={isEditable}
+            <ToolTable
+                searchValue={searchQuery}
                 changeText={onChangeSearchQuery}
                 title={structure.title}
-                handleAdd={handleAdd}
+                isHaveAdd={Boolean(handleAdd)}
+                handleAdd={handleAdd || (() => { })}
             />
+
             <StructureTable
                 isEditable={isEditable}
                 data={sortedData}
                 tableProps={structure}
-                sortColoumn={sortColumn}
-                handleSortColoumn={onHandleSortColoumn}
-                deleteColoumn={onDelete}
-                updateColoumn={handleUpdate}
+                sortColumn={sortColumn}
+                handleSortColumn={onHandleSortColumn}
+                deleteColumn={onDelete}
+                updateColumn={handleUpdate}
             />
             <PaginateTable page={page.current} size={page.size} currentTotal={sortedData.length} total={sizeData} handlePagination={onHandlePagination} />
         </section>
@@ -106,10 +104,10 @@ export default function MainTable({
 
     function onDelete(data: any) {
         handleDelete(data);
-        setPage({
+        setPage(page => ({
             ...page,
             current: 0,
-        });
+        }));
     }
 
     function onHandlePagination(inputValue: number) {
@@ -117,18 +115,18 @@ export default function MainTable({
 
         if (currentValue >= sizeData || currentValue < 0) return;
 
-        setPage({ ...page, current: inputValue });
+        setPage(page => ({ ...page, current: inputValue }));
     }
 
     function onChangeSearchQuery(inputValue: string) {
         setSearchQuery(inputValue);
-        setPage({
+        setPage(page => ({
             ...page,
             current: 0,
-        });
+        }));
     }
 
-    function onHandleSortColoumn(path: string, order = true) {
+    function onHandleSortColumn(path: string, order = true) {
         const temp = { order, path };
         if (temp.path == sortColumn.path)
             temp.order = temp.order ? false : true;
