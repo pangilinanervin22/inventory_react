@@ -2,8 +2,8 @@
 
 .container_table {
     background: #ddcebe;
-    padding: 20px;
-    border: 7px dashed rgb(109, 98, 94);
+    padding: 16px;
+    border: 6px dashed rgb(109, 98, 94);
     border-radius: 30px;
 
     table {
@@ -14,10 +14,6 @@
         border-collapse: collapse;
         table-layout: fixed;
         text-align: center;
-
-        h1 {
-            margin-top: 32px;
-        }
 
         thead {
             width: 100%;

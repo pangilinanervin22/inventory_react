@@ -6,14 +6,13 @@
     height: 100%;
 
     .alert_container {
-        height: 80px;
         background: gainsboro;
         width: 100%;
         margin-bottom: 15px;
         border: 4px dashed $DarkerPrimaryColor;
         background: $PrimaryColor;
         border-radius: 10px;
-        padding: 10px;
+        padding: 8px;
         font-family: $TitleFontFamily;
 
         span {
@@ -36,7 +35,7 @@
     @include flex_container(row, space-between);
     height: 120px;
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 16px;
 
     .display_item {
         @include flex_container(column, flex-start, flex-start);
@@ -45,7 +44,7 @@
         border: 4px dashed $DarkerPrimaryColor;
         background: $PrimaryColor;
         border-radius: 10px;
-        padding: 10px;
+        padding: 8px;
 
         >:first-child {
             font-family: $TitleFontFamily;
@@ -78,7 +77,7 @@
 .chart_container {
     @include flex_container(row, space-between);
     flex-wrap: wrap;
-    height: 300px;
+    height: 280px;
     width: 100%;
     font-family: $TitleFontFamily;
     color: $DarkerPrimaryColor;
