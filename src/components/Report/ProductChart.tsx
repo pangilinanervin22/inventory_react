@@ -1,7 +1,8 @@
-import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
-import { getReportPopular } from '../../api';
-import { useQuery } from '@tanstack/react-query';
+
+interface thisProps {
+  dataProps: []
+}
 
 interface ProductData {
   name: string;
@@ -15,12 +16,10 @@ const defaultData: ProductData[] = [
   { name: 'Product E', total_sales: 250 },
 ];
 
-const ProductChart: React.FC = () => {
-  const { data: fetchedData, isSuccess } = useQuery({ queryKey: ['salesChart'], queryFn: getReportPopular });
-  const data = isSuccess ? fetchedData : defaultData;
+const ProductChart = ({ dataProps }: thisProps) => {
+  const data = dataProps || defaultData;
 
   const COLORS = ['#E8C3B8', '#C08878', '#9D7E22', '#5f483d', '#FF8042'];
-
 
   // Custom label for each pie slice
   const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, payload }: any) => {

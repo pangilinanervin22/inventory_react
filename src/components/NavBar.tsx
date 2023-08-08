@@ -25,18 +25,6 @@ export default function NavBar() {
 
     const { data, isSuccess } = useQuery(["profile"], getEmployeeByToken);
 
-    let fetchedData;
-
-    if (isSuccess)
-        fetchedData = {
-            img_src_fetch: data.img_src || img_src,
-            position_fetch: data.position || position,
-            employee_id: data.employee_id,
-            name: data.name,
-            username: data.username,
-            contact_no: data.contact_no
-        }
-
     return (
         <>
             <div className={styles.container}>
@@ -65,11 +53,11 @@ export default function NavBar() {
                 </div>
 
                 <div>
-                    <h3>{fetchedData?.position_fetch || "guest"}</h3>
+                    <h3>{position || "guest"}</h3>
                     <DropDownHover
                         trigger={
                             <img
-                                src={fetchedData?.img_src_fetch || ""}
+                                src={img_src || ""}
                                 className={styles.user_photo}
                             />
                         }
@@ -82,7 +70,6 @@ export default function NavBar() {
                                 <div className={styles.dropdown_item}
                                     onClick={() => {
                                         logout();
-                                        window.location.href = '/';
                                     }}>
                                     <LogoutIcon />
                                     <h2>Logout</h2>

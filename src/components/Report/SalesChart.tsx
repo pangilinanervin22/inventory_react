@@ -1,7 +1,8 @@
-import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, } from 'recharts';
-import { getReportSales } from '../../api';
-import { useQuery } from '@tanstack/react-query';
+
+interface thisProps {
+  dataProps: []
+}
 
 const defaultData = [
   { month: 'Apr', year: "2023", sales: 0 },
@@ -9,9 +10,8 @@ const defaultData = [
   { month: 'June', year: "2023", sales: 0 },
 ];
 
-const SalesChart: React.FC = () => {
-  const { data: fetchedData, isSuccess } = useQuery({ queryKey: ['totalSales'], queryFn: getReportSales });
-  const data = isSuccess ? fetchedData : defaultData;
+const SalesChart = ({ dataProps }: thisProps) => {
+  const data = dataProps || defaultData;
 
   return (
     <ResponsiveContainer width="100%" height="100%">

@@ -5,11 +5,11 @@ import { ReactComponent as ReportIcon } from "../../assets/svg/Chocolate.svg";
 import { getReportTotal } from "../../api";
 import { useQuery } from "@tanstack/react-query";
 
-const month = new Date().toLocaleString('default', { month: 'long' });
+const NOW_MONTH = new Date().toLocaleString('default', { month: 'long' });
 
-export default function CardRerport() {
+export default function CardReport() {
 
-    const { data, isSuccess } = useQuery({ queryKey: ['total'], queryFn: getReportTotal });
+    const { data, isSuccess } = useQuery({ queryKey: ['report_total'], queryFn: getReportTotal });
 
     const report = {
         total_product: isSuccess ? data.total_product : "0",
@@ -21,7 +21,7 @@ export default function CardRerport() {
         <div className={styles.display_container}>
             <div className={styles.display_item}>
                 <h3>
-                    Total Sales of {month}
+                    Total Sales of {NOW_MONTH}
                 </h3>
                 <div>
                     <SalesIcon />

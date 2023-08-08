@@ -11,11 +11,12 @@ import Report from './pages/Report'
 import 'react-toastify/dist/ReactToastify.css';
 import "./styles/app.scss"
 import storeUserProfile from './app/login'
-import TestComponent from './components/common/TestComponent'
 import POSComponent from './components/pos/POSComponent'
 
 function App() {
-  const token = storeUserProfile(state => state.token)
+  const token = storeUserProfile(state => state.token);
+  const position = storeUserProfile(state => state.position);
+
   const nav = useLocation();
 
   useEffect(() => {
@@ -24,7 +25,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    console.log(token, nav);
+    console.log(position, token, nav);
 
   }, [nav.pathname, localStorage.getItem("token")])
 

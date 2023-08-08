@@ -19,9 +19,10 @@ const personSchema = z.object({
 
 type FormSchemaType = z.infer<typeof personSchema>;
 
-
 export default function Login() {
     const changeCredentials = storeUserProfile(state => state.changeCredentials);
+    const storeToken = storeUserProfile(state => state.login);
+
 
     const navigate = useNavigate();
 
@@ -32,8 +33,8 @@ export default function Login() {
     const { mutate, isLoading } = useMutation(employeeLogin, {
         onSuccess: (res) => {
             // Login successful, redirect or perform any desired actions
-            changeCredentials(structuredClone(res.data));
-            window.location.href = '/';
+            changeCredentials(structuredClone(res.data.info));
+            storeToken(res.data.token)
         },
     });
 

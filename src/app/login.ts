@@ -4,8 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 type AuthStore = {
     img_src: string,
     position: string,
-    isAuthenticated: boolean;
-    token: "",
+    token: string,
     login: (token: any) => void;
     logout: () => void;
     changeCredentials: (value: any) => void;
@@ -14,21 +13,19 @@ type AuthStore = {
 const storeUserProfile = create<AuthStore>()(
     persist(
         (set) => ({
-            isAuthenticated: false,
             img_src: "",
             token: "",
             position: "guest",
-            login: (token: any) => set({ token: token }),
+            login: (token: string) => set({ token: token }),
             logout: () => set({ token: "" }),
             changeCredentials: (value: any) =>
                 set({
                     position: value.position,
                     img_src: value.img_src,
-                    token: value.token,
                 }),
         }),
         {
-            name: "login", // unique name
+            name: "AccountData", // unique name
             storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
         }
     )

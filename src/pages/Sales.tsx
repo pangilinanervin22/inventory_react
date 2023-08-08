@@ -31,7 +31,7 @@ export default function Sales() {
     const { openModal } = useModalStore();
 
     const { data, isSuccess } = useQuery({ queryKey: ["sales"], queryFn: getSales });
-    const { mutate: muatateDeleteSales, } = useMutation(deleteSales, {
+    const { mutate: mutateDeleteSales, } = useMutation(deleteSales, {
         onSuccess: () => {
             mainQueryClient.invalidateQueries({ queryKey: ["sales"] })
         },
@@ -49,7 +49,7 @@ export default function Sales() {
     else return "";
 
     function onHandleDelete(data: any) {
-        openModal(<DeleteModal confirmAction={() => muatateDeleteSales(data.sales_id)} />)
+        openModal(<DeleteModal confirmAction={() => mutateDeleteSales(data.sales_id)} />)
     }
 
     function onHandleAdd() {

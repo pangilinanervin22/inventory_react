@@ -34,11 +34,7 @@ axiosInstance.interceptors.response.use((config) => {
 
 
 export const employeeLogin = async (data: UserLogin) => {
-    const res = axiosInstance.post("/employee/login", data).
-        then((res) => {
-            alert("Successfully login"); return res;
-        }
-        );
+    const res = axiosInstance.post("/employee/login", data);
 
     // const fetch = new Promise<any>((resolve, reject) => {
     // Simulating an API call delay

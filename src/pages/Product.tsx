@@ -51,8 +51,6 @@ export default function Product() {
     }
 
     function onHandleUpdate(data: any) {
-        console.log(data, "232");
-
         openModal(<ProductEditModal defaultValues={data} />)
     }
 }
