@@ -3,15 +3,13 @@ import { ReactComponent as Add } from "../../assets/svg/Add.svg";
 import NumberInputExceed from './NumberInput';
 import PickTable from './PickTable';
 import { TableStructure } from '../MainTable';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { getStock } from '../../api/StockApi';
 import { iStock } from '../../utils/types';
 import { toast } from 'react-toastify';
-import { postManySales } from '../../api/SalesApi';
-import { mainQueryClient } from '../../api';
+import { requestSuccess } from '../../api';
 import styles from '../../styles/components/POSComponent.module.scss'
 import { useModalStore } from '../common/ModalContainer';
 import { convertDate } from '../../utils/date';
+import { listProduct } from '../../api/fake.data/product';
 
 export interface valueItem {
     quantity: number;
@@ -36,15 +34,7 @@ function POSComponent() {
     const [showPick, setShowPick] = useState(false);
     const [valueList, setValueList] = useState<valueItem[]>([]);
     const [visualList, setVisualList] = useState<any[]>([]);
-    const { data, isSuccess } = useQuery<any[]>(["stock"], getStock);
     const closeModal = useModalStore(state => state.closeModal);
-
-    const { mutate: createSales } = useMutation(postManySales, {
-        onSuccess: () => {
-            mainQueryClient.invalidateQueries({ queryKey: ["sales"] })
-            closeModal();
-        },
-    });
 
     const total = useMemo(() => valueList.reduce((accumulator, item: valueItem) => {
         const multipliedValue = item.price * item.quantity;
@@ -96,8 +86,8 @@ function POSComponent() {
                     <button className={styles.button_update}
                         disabled={(total <= 0) || showPick}
                         onClick={() => {
-                            console.log("click", total, valueList);
-                            createSales(valueList);
+                            requestSuccess("Successfully create a sales")
+                            closeModal();
                         }}>
                         Confirm
                     </button>
@@ -116,7 +106,7 @@ function POSComponent() {
                         X
                     </button>
                     <PickTable
-                        data={isSuccess ? data : []}
+                        data={listProduct}
                         handlePick={addItem}
                         structure={bodyTable}
                     />

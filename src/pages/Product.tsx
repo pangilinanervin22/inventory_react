@@ -1,12 +1,11 @@
 import MainTable, { TableStructure } from "../components/MainTable";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { deleteProduct, getProduct } from "../api/ProductApi";
 import { useModalStore } from "../components/common/ModalContainer";
 import DeleteModal from "../components/common/DeleteModal";
-import { mainQueryClient } from "../api";
 import ProductAddModal from "../components/Forms/ProductAddModal";
 import ProductEditModal from "../components/Forms/ProductEditModal";
 import storeUserProfile from "../app/login";
+import { listProduct } from "../api/fake.data/product";
+import { toast } from "react-toastify";
 
 const content: TableStructure = {
     id: "product_id",
@@ -24,26 +23,19 @@ export default function Product() {
 
     const { openModal } = useModalStore();
 
-    const { data, isSuccess } = useQuery(["product"], getProduct);
-    const { mutate: mutateDeleteProduct, } = useMutation(deleteProduct, {
-        onSuccess: () => {
-            mainQueryClient.invalidateQueries({ queryKey: ["product"] })
-        },
-    });
 
-    if (isSuccess) return (
-        <MainTable
-            data={data}
-            isEditable={position != "guest"}
-            structure={content}
-            handleUpdate={onHandleUpdate}
-            handleDelete={onHandleDelete}
-            handleAdd={onHandleAdd} />
+    return (<MainTable
+        data={listProduct}
+        isEditable={position != "guest"}
+        structure={content}
+        handleUpdate={onHandleUpdate}
+        handleDelete={onHandleDelete}
+        handleAdd={onHandleAdd} />
     );
-    else return "";
 
     function onHandleDelete(data: any) {
-        openModal(<DeleteModal confirmAction={() => mutateDeleteProduct(data.product_id)} />)
+        console.log(data);
+        openModal(<DeleteModal confirmAction={() => toast.success("Successfully Deleted ")} />)
     }
 
     function onHandleAdd() {

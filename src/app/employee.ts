@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { iEmployee } from '../utils/types';
 
 
-
 type EmployeeStore = {
     employees: iEmployee[];
     addEmployee: (employee: iEmployee) => void;

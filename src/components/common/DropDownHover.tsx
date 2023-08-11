@@ -25,5 +25,4 @@ const DropDownHover: React.FC<DropdownProps> = ({ trigger, content }) => {
     );
 };
 
-
 export default DropDownHover;

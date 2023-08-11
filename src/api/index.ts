@@ -1,59 +1,30 @@
 import { QueryClient } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
 import { toast } from 'react-toastify';
-import storeUserProfile from "../app/login";
+import { listEmployee } from "./fake.data/employee";
 
 interface UserLogin {
     username: string;
     password: string;
 }
 
-
-const url = "http://localhost:5000/api";
-
-export const axiosInstance = axios.create({
-    baseURL: url,
-    headers: {
-        Authorization: `Bearer ${storeUserProfile.getState().token || ""}`
-    }
-});
-
-axiosInstance.interceptors.response.use((config) => {
-    // Do something before request is sent
-    return config;
-}, function (error: AxiosError) {
-    // Do something with request error
-    console.log(error, error.code);
-    console.log(error.response?.status);
-
-    if (error.response?.status === undefined)
-        return Promise.reject("Server is currently offline");
-
-    return Promise.reject(error.response?.data);
-});
-
-
 export const employeeLogin = async (data: UserLogin) => {
-    const res = axiosInstance.post("/employee/login", data);
+    const fetch = new Promise<any>((resolve, reject) => {
+        const find = listEmployee.find(employee => employee.username == data.username);
 
-    // const fetch = new Promise<any>((resolve, reject) => {
-    // Simulating an API call delay
-    //     const find = listEmployee.find(employee => employee.username == data.username);
+        setTimeout(() => {
+            if (data.username === find?.username && data.password === find.password)
+                resolve(find);
+            else if (!find)
+                reject(new Error('Username is not exist'));
+            else if (data.password != find.password)
+                reject(new Error(`Invalid password`));
+            else
+                reject(new Error('Invalid username or password'));
+        }, 2000);
+    });
 
-    //     setTimeout(() => {
-    //         if (data.username === find?.username && data.password === find.password)
-    //             resolve(find);
-    //         else if (!find)
-    //             reject(new Error('UserName is not exist'));
-    //         else if (data.password != find.password)
-    //             reject(new Error(`Invalid password`));
-    //         else
-    //             reject(new Error('Invalid username or password'));
-
-    //     }, 2000);
-    // });
     return await toast.promise(
-        res,
+        fetch,
         {
             pending: {
                 render() {
@@ -62,10 +33,8 @@ export const employeeLogin = async (data: UserLogin) => {
             },
             success: {
                 render() {
-                    return `Successfuly login`
+                    return `Successfully login`
                 },
-                // other options
-                // icon: "🟢",
             },
             error: {
                 render({ data: error }) {
@@ -76,15 +45,13 @@ export const employeeLogin = async (data: UserLogin) => {
     )
 };
 
-export async function signUpEmployee(user: any) {
-    const res = axiosInstance.post("/employee/", user).
-        then((res) => {
-            alert("Your account is pending for approval"); return res;
-        }
-        );
+export async function signUpEmployee(data: any) {
+    const fetch = new Promise<any>((resolve, reject) => {
+        setTimeout(() => { resolve(data) }, 2000);
+    });
 
     return await toast.promise(
-        res,
+        fetch,
         {
             pending: {
                 render() {
@@ -93,7 +60,7 @@ export async function signUpEmployee(user: any) {
             },
             success: {
                 render() {
-                    return `Successfuly Signup your account`
+                    return `Successfully Signup your account`
                 },
             },
             error: {
@@ -105,29 +72,31 @@ export async function signUpEmployee(user: any) {
     )
 };
 
-export const getReportTotal = async () => {
-    const res = await axiosInstance.get("/report/total");
+export async function requestSuccess(message: string) {
+    const fetch = new Promise<any>((resolve, reject) => {
+        setTimeout(() => { resolve(message) }, 1000);
+    });
 
-    return res.data;
-}
-
-export const getReportSales = async () => {
-    const res = await axiosInstance.get("/report/total/sales");
-
-    return res.data;
-}
-
-export const getReportPopular = async () => {
-    const res = await axiosInstance.get("/report/popular");
-
-    return res.data;
-}
-
-export const getReportLowStock = async () => {
-    const res = await axiosInstance.get("/report/low");
-
-    return res.data;
-}
-
+    return await toast.promise(
+        fetch,
+        {
+            pending: {
+                render() {
+                    return "Request is loading"
+                },
+            },
+            success: {
+                render() {
+                    return message;
+                },
+            },
+            error: {
+                render({ data: error }) {
+                    return `${error}`
+                },
+            }
+        }
+    )
+};
 
 export const mainQueryClient = new QueryClient();

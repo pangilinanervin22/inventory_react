@@ -4,8 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useModalStore } from "../common/ModalContainer";
 import styles from "../../styles/components/FormModal.module.scss";
 import { useMutation } from "@tanstack/react-query";
-import { postProduct } from "../../api/ProductApi";
-import { mainQueryClient } from "../../api";
+import { requestSuccess } from "../../api";
 
 
 const personSchema = z.object({
@@ -29,15 +28,9 @@ export default function ProductAddFormModal() {
     resolver: zodResolver(personSchema),
   });
 
-  const { mutate } = useMutation(postProduct, {
-    onSuccess: () => {
-      mainQueryClient.invalidateQueries({ queryKey: ["product"] })
-      closeModal();
-    },
-  });
-
   const submit = (data: FormSchemaType) => {
-    mutate(data);
+    requestSuccess("Successfully add " + data.name)
+    closeModal();
   };
 
   return (

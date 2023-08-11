@@ -26,3 +26,30 @@
     justify-content: center;
     margin-top: 16px;
 }
+
+.guide {
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    margin: 16px 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: brown;
+    color: white;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: help;
+}
+
+.guide_content {
+    right: 10px;
+    bottom: 10px;
+    position: fixed;
+    background: black;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+}

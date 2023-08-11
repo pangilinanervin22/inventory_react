@@ -3,12 +3,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useModalStore } from "../common/ModalContainer";
 import styles from "../../styles/components/FormModal.module.scss";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getProduct } from "../../api/ProductApi";
-import { mainQueryClient } from "../../api";
-import { updateStock } from "../../api/StockApi";
 import { iProduct } from "../../utils/types";
 import { convertStringDate } from "../../utils/date";
+import { requestSuccess } from "../../api";
+import { listProduct } from "../../api/fake.data/product";
 
 const thisProps = z.object({
     product_id: z.string()
@@ -33,29 +31,10 @@ export default function StockEditModal({ defaultValues }: { defaultValues: any }
             expiration_date: convertStringDate(defaultValues.expiration_date),
         }
     });
-
-    console.log(defaultValues, getValues());
-
-
-    const { data: productList, isSuccess } = useQuery(["product"], getProduct);
-    const { mutate } = useMutation(updateStock, {
-        onSuccess: () => {
-            mainQueryClient.invalidateQueries({ queryKey: ["stock"] })
-            closeModal();
-        },
-    });
-
     const submit = (data: FormSchemaType) => {
-        mutate({
-            ...data,
-            expiration_date: new Date(data.expiration_date),
-            production_date: new Date(data.production_date),
-            stock_id: defaultValues.stock_id
-        });
+        requestSuccess("Successfully edit sales")
+        closeModal();
     };
-
-    if (!isSuccess)
-        return <div>Loading...</div>;
 
     return (
         <section className={styles.container}>
@@ -64,12 +43,11 @@ export default function StockEditModal({ defaultValues }: { defaultValues: any }
                 <div className={`${styles.form_input} ${errors.product_id && styles.error_input}`}>
                     <label htmlFor="product">Product</label>
                     <select {...register("product_id")} onChange={(e) => setValue("product_id", e.target.value)} id="product" name="product" >
-                        {productList &&
-                            productList.map((country: iProduct) => (
-                                <option key={country.product_id} value={country.product_id}>
-                                    {country.name}
-                                </option>
-                            ))}
+                        {listProduct.map((country: iProduct) => (
+                            <option key={country.product_id} value={country.product_id}>
+                                {country.name}
+                            </option>
+                        ))}
                     </select>
                     {errors.product_id && <span>{String(errors.product_id?.message)}</span>}
                 </div>

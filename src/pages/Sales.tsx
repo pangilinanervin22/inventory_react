@@ -1,13 +1,13 @@
 import MainTable, { TableStructure } from "../components/MainTable";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useModalStore } from "../components/common/ModalContainer";
 import DeleteModal from "../components/common/DeleteModal";
-import { mainQueryClient } from "../api";
-import { deleteSales, getSales } from "../api/SalesApi";
+import { mainQueryClient, requestSuccess } from "../api";
 import SalesEditModal from "../components/Forms/SalesEditModal";
 import storeUserProfile from "../app/login";
 import { convertDate } from "../utils/date";
 import POSComponent from "../components/pos/POSComponent";
+import { listSales } from "../api/fake.data/sales";
 
 const content: TableStructure = {
     title: "Sales",
@@ -30,26 +30,18 @@ export default function Sales() {
     const position = storeUserProfile(state => state.position)
     const { openModal } = useModalStore();
 
-    const { data, isSuccess } = useQuery({ queryKey: ["sales"], queryFn: getSales });
-    const { mutate: mutateDeleteSales, } = useMutation(deleteSales, {
-        onSuccess: () => {
-            mainQueryClient.invalidateQueries({ queryKey: ["sales"] })
-        },
-    });
-
-    if (isSuccess) return (
+    return (
         <MainTable
-            data={data}
+            data={listSales}
             isEditable={position != "guest"}
             structure={content}
             handleUpdate={onHandleUpdate}
             handleDelete={onHandleDelete}
             handleAdd={onHandleAdd} />
     );
-    else return "";
 
     function onHandleDelete(data: any) {
-        openModal(<DeleteModal confirmAction={() => mutateDeleteSales(data.sales_id)} />)
+        openModal(<DeleteModal confirmAction={() => requestSuccess("Successfully delete a sales")} />)
     }
 
     function onHandleAdd() {

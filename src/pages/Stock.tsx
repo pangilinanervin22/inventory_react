@@ -1,13 +1,12 @@
 import MainTable, { TableStructure } from "../components/MainTable";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { useModalStore } from "../components/common/ModalContainer";
 import DeleteModal from "../components/common/DeleteModal";
-import { mainQueryClient } from "../api";
-import { deleteStock, getStock } from "../api/StockApi";
+import { mainQueryClient, requestSuccess } from "../api";
 import StockAddModal from "../components/Forms/StockAddModal";
 import StockEditModal from "../components/Forms/StockEditModal";
 import storeUserProfile from "../app/login";
 import { convertDate } from "../utils/date";
+import { listStock } from "../api/fake.data/stock";
 
 const content: TableStructure = {
     title: "Stock",
@@ -34,31 +33,22 @@ const content: TableStructure = {
     ]
 };
 
-
 export default function Stock() {
     const position = storeUserProfile(state => state.position)
     const { openModal } = useModalStore();
 
-    const { data, isSuccess } = useQuery({ queryKey: ["stock"], queryFn: getStock });
-    const { mutate: muatateDeleteStock, } = useMutation(deleteStock, {
-        onSuccess: () => {
-            mainQueryClient.invalidateQueries({ queryKey: ["stock"] })
-        },
-    });
-
-    if (isSuccess) return (
+    return (
         <MainTable
-            data={data}
+            data={listStock}
             isEditable={position != "guest"}
             structure={content}
             handleUpdate={onHandleUpdate}
             handleDelete={onHandleDelete}
             handleAdd={onHandleAdd} />
     );
-    else return "No data"
 
     function onHandleDelete(data: any) {
-        openModal(<DeleteModal confirmAction={() => muatateDeleteStock(data.stock_id)} />)
+        openModal(<DeleteModal confirmAction={() => requestSuccess("Successfully delete a stock")} />)
     }
 
     function onHandleAdd() {

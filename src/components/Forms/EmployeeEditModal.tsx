@@ -3,9 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useModalStore } from "../common/ModalContainer";
 import styles from "../../styles/components/FormModal.module.scss";
-import { useMutation } from "@tanstack/react-query";
-import { mainQueryClient } from "../../api";
-import { editInfoEmployee } from "../../api/EmployeeApi";
+import { requestSuccess } from "../../api";
 import PictureAdd from "./PictureAdd";
 import { iEmployee } from "../../utils/types";
 import { useState } from "react";
@@ -42,15 +40,9 @@ export default function EmployeeEditModal({ defaultValues, positionEditable }: t
         defaultValues
     });
 
-    const { mutate } = useMutation(editInfoEmployee, {
-        onSuccess: () => {
-            mainQueryClient.invalidateQueries({ queryKey: ["employee"] })
-            closeModal();
-        },
-    });
-
     const submit = (data: FormSchemaType) => {
-        mutate({ ...data, employee_id: defaultValues.employee_id, img_src: selectedFile });
+        requestSuccess("Successfully edit " + data.name)
+        closeModal();
     };
 
     return (

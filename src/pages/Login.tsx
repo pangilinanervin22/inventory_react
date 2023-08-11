@@ -20,22 +20,29 @@ const personSchema = z.object({
 type FormSchemaType = z.infer<typeof personSchema>;
 
 export default function Login() {
-    const changeCredentials = storeUserProfile(state => state.changeCredentials);
     const storeToken = storeUserProfile(state => state.login);
 
-
     const navigate = useNavigate();
-
     const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
         resolver: zodResolver(personSchema),
     });
 
     const { mutate, isLoading } = useMutation(employeeLogin, {
-        onSuccess: (res) => {
-            // Login successful, redirect or perform any desired actions
-            changeCredentials(structuredClone(res.data.info));
-            storeToken(res.data.token)
+        onSuccess: (data) => {
+            storeToken(data)
         },
+        onError: (error) => {
+            if (confirm(error + "\nDid you want to login by default"))
+                storeToken({
+                    "employee_id": "5261fd04-eeff-4854-9b30-a50ab1aed8cd",
+                    "name": "Sample Account",
+                    "username": "sample",
+                    "password": "sample",
+                    "contact_no": "09367041121",
+                    "position": "owner",
+                    "img_src": "https://avatars.githubusercontent.com/u/95746670"
+                })
+        }
     });
 
     const submit = (data: FormSchemaType) => {
@@ -54,7 +61,9 @@ export default function Login() {
                     <form className={styles.form} onSubmit={handleSubmit(submit)}>
                         <div className={`${styles.form_input} ${errors.username && styles.error_input}`}>
                             <label htmlFor="username">Email</label>
-                            <input {...register("username")} id="username" name="username" type="text" />
+                            <input {...register("username")} id="username" name="username" type="text"
+                                placeholder={`TRY: "SampleUsername"`}
+                            />
                             {errors.username && <span>{String(errors.username?.message)}</span>}
                         </div>
                         <div className={`${styles.form_input} ${errors.password && styles.error_input}`}>
@@ -64,7 +73,6 @@ export default function Login() {
                         </div>
                         <button disabled={isLoading} type="submit">Login</button>
                     </form>
-
 
                     <div className={styles.link_signin}>
                         <a onClick={() => navigate('/signup')}>Don't have an account?</a>

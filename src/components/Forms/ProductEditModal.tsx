@@ -3,10 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useModalStore } from "../common/ModalContainer";
 import styles from "../../styles/components/FormModal.module.scss";
-import { useMutation } from "@tanstack/react-query";
-import { updateProduct } from "../../api/ProductApi";
 import { iProduct } from "../../utils/types";
-import { mainQueryClient } from "../../api";
+import { requestSuccess } from "../../api";
 
 const personSchema = z.object({
   name: z.string()
@@ -22,7 +20,6 @@ const personSchema = z.object({
 
 type FormSchemaType = z.infer<typeof personSchema>;
 
-
 export default function ProductEditModal({ defaultValues }: { defaultValues: iProduct }) {
   const { closeModal } = useModalStore();
   const { register, handleSubmit, formState: { errors } } = useForm<FormSchemaType>({
@@ -30,17 +27,9 @@ export default function ProductEditModal({ defaultValues }: { defaultValues: iPr
     defaultValues
   });
 
-  const { mutate } = useMutation(updateProduct, {
-    onSuccess: (data) => {
-      console.log(data);
-
-      mainQueryClient.invalidateQueries({ queryKey: ["product"] })
-      closeModal();
-    },
-  });
-
   const submit = (data: FormSchemaType) => {
-    mutate({ ...data, product_id: defaultValues.product_id });
+    requestSuccess("Successfully edit " + data.name)
+    closeModal();
   };
 
   return (

@@ -2,19 +2,15 @@ import styles from "../../styles/pages/Report.module.scss"
 import { ReactComponent as SalesIcon } from "../../assets/svg/Report_Total_Sales.svg";
 import { ReactComponent as StocksIcon } from "../../assets/svg/Product.svg";
 import { ReactComponent as ReportIcon } from "../../assets/svg/Chocolate.svg";
-import { getReportTotal } from "../../api";
-import { useQuery } from "@tanstack/react-query";
 
 const NOW_MONTH = new Date().toLocaleString('default', { month: 'long' });
 
 export default function CardReport() {
 
-    const { data, isSuccess } = useQuery({ queryKey: ['report_total'], queryFn: getReportTotal });
-
     const report = {
-        total_product: isSuccess ? data.total_product : "0",
-        total_stock: isSuccess ? data.total_stock : "0",
-        total_sales: isSuccess ? data.total_sales : "0",
+        "total_product": 11,
+        "total_stock": 136,
+        "total_sales": 9300
     }
 
     return (

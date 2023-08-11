@@ -21,6 +21,7 @@ const TestInput: React.FC<PasswordInputProps> = ({ path, register }) => {
                 {...register(path)} // Register the input with react-hook-form
                 type={isPasswordVisible ? 'text' : 'password'}
                 name={path}
+                placeholder={`TRY: "SamplePassword"`}
             />
             {isPasswordVisible ? <Eye onClick={togglePasswordVisibility} /> :
                 <EyeClose className='' onClick={togglePasswordVisibility} />}

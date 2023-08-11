@@ -7,23 +7,20 @@ import { ReactComponent as ProductIcon } from "../assets/svg/Product.svg";
 import { ReactComponent as InventoryIcon } from "../assets/svg/Inventory.svg";
 import { ReactComponent as SalesIcon } from "../assets/svg/Sales.svg";
 import { ReactComponent as LogoutIcon } from "../assets/svg/Logout.svg";
-
-
 import DropDownHover from "./common/DropDownHover";
 import storeUserProfile from "../app/login";
 import { shallow } from "zustand/shallow";
 import { useModalStore } from "./common/ModalContainer";
-import { useQuery } from "@tanstack/react-query";
-import { getEmployeeByToken } from "../api/EmployeeApi";
 import EmployeeEditModal from "./Forms/EmployeeEditModal";
+import { listEmployee } from "../api/fake.data/employee";
 
 export default function NavBar() {
     const openModal = useModalStore(state => state.openModal);
 
-    const [img_src, position, logout] = storeUserProfile(
-        (state) => [state.img_src, state.position, state.logout], shallow);
+    const [img_src, name, logout] = storeUserProfile(
+        (state) => [state.img_src, state.name, state.logout], shallow);
 
-    const { data, isSuccess } = useQuery(["profile"], getEmployeeByToken);
+    const account = listEmployee.find(data => data.employee_id)
 
     return (
         <>
@@ -53,7 +50,7 @@ export default function NavBar() {
                 </div>
 
                 <div>
-                    <h3>{position || "guest"}</h3>
+                    <h3>{name || "guest"}</h3>
                     <DropDownHover
                         trigger={
                             <img
@@ -83,7 +80,7 @@ export default function NavBar() {
     );
 
     function editInfo() {
-        if (isSuccess)
-            openModal(<EmployeeEditModal defaultValues={data} positionEditable={false} />)
+        if (account)
+            openModal(<EmployeeEditModal defaultValues={account} positionEditable={false} />)
     }
 }

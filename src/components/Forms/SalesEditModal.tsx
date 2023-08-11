@@ -3,12 +3,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useModalStore } from "../common/ModalContainer";
 import styles from "../../styles/components/FormModal.module.scss";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getProduct } from "../../api/ProductApi";
-import { mainQueryClient } from "../../api";
 import { iProduct } from "../../utils/types";
-import { updateSales } from "../../api/SalesApi";
 import { convertStringDate } from "../../utils/date";
+import { requestSuccess } from "../../api";
+import { listProduct } from "../../api/fake.data/product";
 
 
 const thisProps = z.object({
@@ -33,24 +31,10 @@ export default function SalesEditModal({ defaultValues }: { defaultValues: any }
         }
     });
 
-    const { data: productList, isSuccess } = useQuery(["product"], getProduct);
-    const { mutate } = useMutation(updateSales, {
-        onSuccess: () => {
-            mainQueryClient.invalidateQueries({ queryKey: ["sales"] })
-            closeModal();
-        },
-    });
-
     const submit = (data: FormSchemaType) => {
-        mutate({
-            ...data,
-            sales_date: new Date(data.sales_date),
-            sales_id: defaultValues.sales_id
-        });
+        requestSuccess("Successfully edit sales")
+        closeModal();
     };
-
-    if (!isSuccess)
-        return <div>Loading...</div>;
 
     return (
         <section className={styles.container}>
@@ -61,12 +45,11 @@ export default function SalesEditModal({ defaultValues }: { defaultValues: any }
                     <select {...register("product_id")}
                         onChange={(e) => setValue("product_id", e.target.value)}
                         id="product" name="product" >
-                        {productList &&
-                            productList.map((item: iProduct) => (
-                                <option key={item.product_id} value={item.product_id}>
-                                    {item.name}
-                                </option>
-                            ))}
+                        {listProduct.map((item: iProduct) => (
+                            <option key={item.product_id} value={item.product_id}>
+                                {item.name}
+                            </option>
+                        ))}
                     </select>
                     {errors.product_id && <span>{String(errors.product_id?.message)}</span>}
                 </div>

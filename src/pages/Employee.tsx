@@ -1,12 +1,11 @@
-import { mainQueryClient } from "../api";
-import { deleteEmployee, getEmployees } from "../api/EmployeeApi";
+import { mainQueryClient, requestSuccess } from "../api";
 import storeUserProfile from "../app/login";
 import EmployeeEditModal from "../components/Forms/EmployeeEditModal";
 import DeleteModal from "../components/common/DeleteModal";
 import { useModalStore } from "../components/common/ModalContainer";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import NotAllowedModal from "../components/common/NotAllowedModal";
 import MainTable, { TableStructure } from "../components/MainTable";
+import { listEmployee } from "../api/fake.data/employee";
 
 
 const content: TableStructure = {
@@ -23,30 +22,21 @@ const content: TableStructure = {
 
 export default function Employee() {
     const position = storeUserProfile(state => state.position)
-
-    const { data: employeeData, isSuccess } = useQuery(["employee"], getEmployees);
-
     const { openModal } = useModalStore();
-    const { mutate: mutateDeleteProduct, } = useMutation(deleteEmployee, {
-        onSuccess: () => {
-            mainQueryClient.invalidateQueries({ queryKey: ["employee"] })
-        },
-    });
 
-    if (isSuccess) return (<MainTable
-        data={employeeData}
+
+    return (<MainTable
+        data={listEmployee}
         isEditable={position == "admin" || position == "owner"}
         structure={content}
         handleUpdate={onHandleUpdate}
         handleDelete={onHandleDelete} />)
 
-
     function onHandleDelete(data: any) {
         if (data.position == "owner")
             openModal(<NotAllowedModal titleDelete="Owner's account can't be delete" />)
         else
-            openModal(<DeleteModal confirmAction={() => mutateDeleteProduct(data.employee_id)} />)
-
+            openModal(<DeleteModal confirmAction={() => requestSuccess("Successfully delete " + data.name)} />)
     }
 
     function onHandleUpdate(data: any) {

@@ -4,7 +4,6 @@ import styles from "../styles/pages/Root.module.scss";
 import ModalContainer from "../components/common/ModalContainer";
 
 
-
 export default function Root() {
 
 
